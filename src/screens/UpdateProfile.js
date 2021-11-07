@@ -43,9 +43,7 @@ export default function UpdateProfile() {
         setLoading(false);
       });
   }
-  return currentUser ? (
-    <Navigate to="/" replace={true} />
-  ) : (
+  return (
     <>
       <div>
         <h2>Update Profile</h2>

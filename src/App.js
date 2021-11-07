@@ -28,7 +28,7 @@ function App() {
             }
           />
           <Route
-            path="/update-profile"
+            path="update-profile"
             element={
               <PrivateRoute>
                 <UpdateProfile />
