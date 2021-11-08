@@ -7,8 +7,8 @@ export default function Login() {
   const { logIn, currentUser } = useAuth();
 
   // Hardcoded values for testing
-  const [email, setEmail] = useState("studyradar@example.com");
-  const [password, setPassword] = useState("Password1234");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -28,18 +28,40 @@ export default function Login() {
 
     setLoading(false);
   }
+
+  function handleEmailChange(event) {
+    setEmail(event.target.value);
+  }
+
+  function handlePasswordChange(event) {
+    setPassword(event.target.value);
+  }
+
   return currentUser ? (
     <Navigate to="/" replace={true} />
   ) : (
     <>
       <div>
-        <h2>Log In</h2>
+        <h2>Log In Page</h2>
         {error && <h3>{error}</h3>}
         {currentUser && currentUser.email}
-        {/* Create form */}
-        <button onClick={handleSubmit} disabled={loading}>
-          Log In
-        </button>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Email:
+            <input type="email" value={email} onChange={handleEmailChange} />
+          </label>
+          <br />
+          <label>
+            Password:
+            <input
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          </label>
+          <br />
+          <input type="submit" value="Log In" disabled={loading} />
+        </form>
       </div>
       <Link to="/forgot-password" m replace={true}>
         Forgot password?
