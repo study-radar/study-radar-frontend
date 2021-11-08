@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { sendEmailVerification } from "@firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function UpdateProfile() {
-  const { signUp, updatePassword, updateEmail, currentUser } = useAuth();
+  const { updateUserPassword, updateUserEmail, currentUser } = useAuth();
 
   // Hardcoded values for testing
-  const [email, setEmail] = useState("studyradar@example.com");
-  const [password, setPassword] = useState("Password1234");
-  const [confirmPassword, setConfirmPassword] = useState("Password1234");
+  const [email, setEmail] = useState(currentUser.email);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -19,18 +18,18 @@ export default function UpdateProfile() {
     e.preventDefault();
 
     // TODO: Test out edge cases, e.g. password is blank if they don't want to change
-    if (password !== confirmPassword) {
+    if (password && password !== confirmPassword) {
       return setError("Passwords do not match");
     }
 
     const promises = [];
     setError("");
     setLoading(true);
-    if (email !== currentUser.email) {
-      promises.push(updateEmail(email));
+    if (email && email !== currentUser.email) {
+      promises.push(updateUserEmail(email));
     }
     if (password) {
-      promises.push(updatePassword(password));
+      promises.push(updateUserPassword(password));
     }
     Promise.all(promises)
       .then(() => {
@@ -43,23 +42,64 @@ export default function UpdateProfile() {
         setLoading(false);
       });
   }
+
+  function handleGoBack() {
+    navigate(-1);
+  }
+
+  function handleEmailChange(event) {
+    setEmail(event.target.value);
+  }
+
+  function handlePasswordChange(event) {
+    setPassword(event.target.value);
+  }
+
+  function handleConfirmPasswordChange(event) {
+    setConfirmPassword(event.target.value);
+  }
+
   return (
     <>
       <div>
-        <h2>Update Profile</h2>
+        <h2>Update Profile Page</h2>
         {error && <h3>{error}</h3>}
-        {currentUser && currentUser.email}
-        {/* Create form */}
-        <button onClick={handleSubmit} disabled={loading}>
-          Update Password
-        </button>
+        {currentUser && <h2>Current email: {currentUser.email}</h2>}
+        <form onSubmit={handleSubmit}>
+          <label>
+            Email:
+            <input
+              type="email"
+              value={email}
+              onChange={handleEmailChange}
+              required
+            />
+          </label>
+          <br />
+          <label>
+            Password:
+            <input
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="Leave blank to keep password"
+            />
+          </label>
+          <br />
+          <label>
+            Confirm Password:
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+            />
+          </label>
+          <br />
+          <input type="submit" value="Update Account" disabled={loading} />
+        </form>
       </div>
       <div>
-        Already have an account?
-        {/* Maybe replace with a button and use navigate() */}
-        <Link to="/" replace={true}>
-          Go Back
-        </Link>
+        <button onClick={handleGoBack}>Cancel</button>
       </div>
     </>
   );

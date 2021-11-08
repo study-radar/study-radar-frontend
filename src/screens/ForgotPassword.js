@@ -6,7 +6,7 @@ export default function ForgotPassword() {
   const { resetPassword } = useAuth();
 
   // Hardcoded values for testing
-  const [email, setEmail] = useState("studyradar@example.com");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -26,19 +26,28 @@ export default function ForgotPassword() {
 
     setLoading(false);
   }
+
+  function handleEmailChange(event) {
+    setEmail(event.target.value);
+  }
+
   return (
     <>
       <div>
-        <h2>Reset Password</h2>
+        <h2>Reset Password Page</h2>
         {message && <h3>{message}</h3>}
         {error && <h3>{error}</h3>}
-        {/* Create form */}
-        <button onClick={handleSubmit} disabled={loading}>
-          Reset Password
-        </button>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Email:
+            <input type="email" value={email} onChange={handleEmailChange} />
+          </label>
+          <br />
+          <input type="submit" value="Reset Password" disabled={loading} />
+        </form>
       </div>
       <Link to="/login" replace={true}>
-        Log In
+        Go to Log In
       </Link>
       <div>
         Need an account?{" "}
