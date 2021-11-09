@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import "./SignUp.css";
 
 export default function SignUp() {
   const { signUp, currentUser } = useAuth();
@@ -50,41 +51,56 @@ export default function SignUp() {
     <Navigate to="/" replace={true} />
   ) : (
     <>
-      <div>
-        <h2>Sign Up Page</h2>
+      <div className="title">
+        <h2>REGISTER</h2>
+        <div className="subtitle">
+          <h2>Choose Email and Password</h2>
+        </div>
         {error && <h3>{error}</h3>}
         {currentUser && currentUser.email}
+        <div className="body">
         <form onSubmit={handleSubmit}>
           <label>
-            Email:
-            <input type="email" value={email} onChange={handleEmailChange} />
+            EMAIL
           </label>
+            <input type="email" value={email} onChange={handleEmailChange} />
           <br />
           <label>
-            Password:
+            CREATE PASSWORD
+          </label>
             <input
               type="password"
               value={password}
               onChange={handlePasswordChange}
             />
-          </label>
           <br />
           <label>
-            Confirm Password:
+            CONFIRM PASSWORD
+          </label>
             <input
               type="password"
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
             />
-          </label>
           <br />
-          <input type="submit" value="Create Account" disabled={loading} />
+          <label>
+            MAJOR
+          </label>
+            <input
+              // further change required
+              // type="password"
+              // value={confirmPassword}
+              // onChange={handleConfirmPasswordChange}
+            />
+          <br />
+            <button type="submit" disabled={loading} >REGISTER</button>
         </form>
+        </div>
       </div>
-      <div>
-        Already have an account?
-        <Link to="/login" replace={true}>
-          Log In
+      <div className="bottom">
+        Already have an account?&nbsp;&nbsp;
+        <Link className="login-link" to="/login" replace={true}>
+          LOG IN HERE
         </Link>
       </div>
     </>
