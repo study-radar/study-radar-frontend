@@ -9,6 +9,7 @@ export default function UpdateProfile() {
   const [email, setEmail] = useState(currentUser.email);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [major, setMajor] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -59,6 +60,10 @@ export default function UpdateProfile() {
     setConfirmPassword(event.target.value);
   }
 
+  function handleMajorChange(event) {
+    setMajor(event.target.value);
+  }
+
   return (
     <>
       <div>
@@ -94,6 +99,16 @@ export default function UpdateProfile() {
               onChange={handleConfirmPasswordChange}
             />
           </label>
+          <br />
+          <label>
+            MAJOR
+          </label>
+            <input
+              // further change required
+              type="major"
+              value={major}
+              onChange={handleMajorChange}
+            />
           <br />
           <input type="submit" value="Update Account" disabled={loading} />
         </form>

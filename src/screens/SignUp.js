@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import "./SignUp.css";
+
 
 export default function SignUp() {
   const { signUp, currentUser } = useAuth();
 
-  // Hardcoded values for testing
+  // the string in useState refers to first var (e.g. email)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [major, setMajor] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -27,7 +30,8 @@ export default function SignUp() {
       await signUp(email, password);
       navigate("/", { replace: true });
     } catch {
-      setError("Failed to create an account");
+        setError("Failed to create an account");
+      
     }
 
     setLoading(false);
@@ -45,46 +49,74 @@ export default function SignUp() {
     setConfirmPassword(event.target.value);
   }
 
+  function handleMajorChange(event) {
+    setMajor(event.target.value);
+  }
+
   // If already signed in, go to homepage and not show this page
   return currentUser ? (
     <Navigate to="/" replace={true} />
   ) : (
     <>
-      <div>
-        <h2>Sign Up Page</h2>
+      <div className="title">
+        <h2>REGISTER</h2>
+      </div>
+      <div className="subtitle">
+        <h2>Choose Email and Password</h2>
+      </div>
         {error && <h3>{error}</h3>}
         {currentUser && currentUser.email}
-        <form onSubmit={handleSubmit}>
-          <label>
-            Email:
-            <input type="email" value={email} onChange={handleEmailChange} />
-          </label>
-          <br />
-          <label>
-            Password:
-            <input
-              type="password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-          </label>
-          <br />
-          <label>
-            Confirm Password:
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-            />
-          </label>
-          <br />
-          <input type="submit" value="Create Account" disabled={loading} />
-        </form>
-      </div>
-      <div>
-        Already have an account?
-        <Link to="/login" replace={true}>
-          Log In
+          <form onSubmit={handleSubmit}>
+            <div className="inputAndLabel">
+                <label>
+                  EMAIL
+                </label>
+                  <input 
+                    type="email" 
+                    value={email} 
+                    onChange={handleEmailChange} 
+                    placeholder="Enter your email"
+                  />
+                <br />
+              <label>
+              CREATE PASSWORD
+            </label>
+              <input
+                type="password"
+                value={password}
+                onChange={handlePasswordChange}
+                placeholder="Enter your password"
+              />
+            <br />
+            <label>
+              CONFIRM PASSWORD
+            </label>
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+                placeholder="Confirm your password"
+              />
+            <br />
+            <label>
+              MAJOR
+            </label>
+              <input
+                // further change required
+                type="major"
+                value={major}
+                onChange={handleMajorChange}
+                placeholder="Enter your major"
+              />
+            <br />
+            </div>
+              <button type="submit" disabled={loading} >REGISTER</button>
+          </form>
+      <div className="bottom">
+        Already have an account?&nbsp;&nbsp;
+        <Link className="login-link" to="/login" replace={true}>
+          LOG IN HERE
+          <br /><br /><br /><br />
         </Link>
       </div>
     </>
