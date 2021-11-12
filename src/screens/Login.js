@@ -42,30 +42,28 @@ export default function Login() {
     <Navigate to="/" replace={true} />
   ) : (
     <>
-      <div>
-        <h2 className="title">LOG IN</h2>
-        {error && <h3>{error}</h3>}
-        {currentUser && currentUser.email}
-        <form onSubmit={handleSubmit}>
-          <div className="inputAndLabel">
-            <label>
-              EMAIL
-            </label>
-            <input type="email" value={email} onChange={handleEmailChange} />
-            <br />
-            <label>
-              PASSWORD
-            </label>
-            <input
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-              />
-            <br />
-          </div>
-          <button type="submit" disabled={loading} >LOG IN</button>
-        </form>
-      </div>
+      <h2 className="title">LOG IN</h2>
+      {error && <h3>{error}</h3>}
+      {currentUser && currentUser.email}
+      <form onSubmit={handleSubmit}>
+        <div className="inputAndLabel">
+          <label>
+            EMAIL
+          </label>
+          <input type="email" value={email} onChange={handleEmailChange} />
+          <br />
+          <label>
+            PASSWORD
+          </label>
+          <input
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          <br />
+        </div>
+        <button type="submit" disabled={loading} >LOG IN</button>
+      </form>
       <div className="bottom">
         <Link className="login-link" to="/forgot-password" m replace={true}>
           Forgot password?

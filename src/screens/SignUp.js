@@ -58,60 +58,56 @@ export default function SignUp() {
     <Navigate to="/" replace={true} />
   ) : (
     <>
-      <div className="title">
-        <h2>REGISTER</h2>
-      </div>
-      <div className="subtitle">
-        <h2>Choose Email and Password</h2>
-      </div>
-        {error && <h3>{error}</h3>}
-        {currentUser && currentUser.email}
-          <form onSubmit={handleSubmit}>
-            <div className="inputAndLabel">
-                <label>
-                  EMAIL
-                </label>
-                  <input 
-                    type="email" 
-                    value={email} 
-                    onChange={handleEmailChange} 
-                    placeholder="Enter your email"
-                  />
-                <br />
-              <label>
-              CREATE PASSWORD
-            </label>
-              <input
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-                placeholder="Enter your password"
-              />
-            <br />
-            <label>
-              CONFIRM PASSWORD
-            </label>
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={handleConfirmPasswordChange}
-                placeholder="Confirm your password"
-              />
-            <br />
-            <label>
-              MAJOR
-            </label>
-              <input
-                // further change required
-                type="major"
-                value={major}
-                onChange={handleMajorChange}
-                placeholder="Enter your major"
-              />
-            <br />
-            </div>
-              <button type="submit" disabled={loading} >REGISTER</button>
-          </form>
+      <h2 className="title">REGISTER</h2>
+      <h2 className="subtitle">Choose Email and Password</h2>
+      {error && <h3>{error}</h3>}
+      {currentUser && currentUser.email}
+      <form onSubmit={handleSubmit}>
+        <div className="inputAndLabel">
+          <label>
+            EMAIL
+          </label>
+            <input 
+              type="email" 
+              value={email} 
+              onChange={handleEmailChange} 
+              placeholder="Enter your email"
+            />
+          <br />
+          <label>
+            CREATE PASSWORD
+          </label>
+            <input
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="Enter your password"
+            />
+          <br />
+          <label>
+            CONFIRM PASSWORD
+          </label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              placeholder="Confirm your password"
+            />
+          <br />
+          <label>
+            MAJOR
+          </label>
+          <input
+            // further change required
+            type="major"
+            value={major}
+            onChange={handleMajorChange}
+            placeholder="Enter your major"
+          />
+        <br />
+        </div>
+        <button type="submit" disabled={loading} >REGISTER</button>
+      </form>
       <div className="bottom">
         Already have an account?&nbsp;&nbsp;
         <Link className="login-link" to="/login" replace={true}>
