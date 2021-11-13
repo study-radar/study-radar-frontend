@@ -67,50 +67,49 @@ export default function UpdateProfile() {
   return (
     <>
       <div>
-        <h2>Update Profile Page</h2>
+        <h2 className="title">UPDATE PROFILE</h2>
         {error && <h3>{error}</h3>}
-        {currentUser && <h2>Current email: {currentUser.email}</h2>}
+        {currentUser && <h2 className="subtitle">Current email: {currentUser.email}</h2>}
         <form onSubmit={handleSubmit}>
           <label>
-            Email:
-            <input
+            EMAIL
+          </label>
+          <input
               type="email"
               value={email}
               onChange={handleEmailChange}
               required
             />
-          </label>
           <br />
           <label>
-            Password:
-            <input
+            PASSWORD
+          </label>
+          <input
               type="password"
               value={password}
               onChange={handlePasswordChange}
               placeholder="Leave blank to keep password"
             />
-          </label>
           <br />
           <label>
-            Confirm Password:
-            <input
+            CONFIRM PASSWORD
+          </label>
+          <input
               type="password"
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
             />
-          </label>
           <br />
           <label>
             MAJOR
           </label>
-            <input
+          <input
               // further change required
               type="major"
               value={major}
               onChange={handleMajorChange}
-            />
-          <br />
-          <input type="submit" value="Update Account" disabled={loading} />
+          />
+          <button type="submit" disabled={loading} >REGISTER</button>
         </form>
       </div>
       <div>
