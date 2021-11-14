@@ -42,33 +42,45 @@ export default function Login() {
   ) : (
     <>
       <div>
-        <h2>Log In Page</h2>
-        {error && <h3>{error}</h3>}
+        <h2 className="title">LOG IN</h2>
+        {error && <h3 className="errorProp">{error}</h3>}
         {currentUser && currentUser.email}
         <form onSubmit={handleSubmit}>
-          <label>
-            Email:
-            <input type="email" value={email} onChange={handleEmailChange} />
-          </label>
+          <label className="labelProp">
+            EMAIL
+            </label>
+            <input 
+              className = "inputProp"
+              type="email" 
+              value={email} 
+              onChange={handleEmailChange} />
+          
           <br />
-          <label>
-            Password:
+          <label className="labelProp">
+          PASSWORD
+          </label>
             <input
+              className = "inputProp"
               type="password"
               value={password}
               onChange={handlePasswordChange}
             />
-          </label>
           <br />
-          <input type="submit" value="Log In" disabled={loading} />
+          <button 
+            className = "buttonProp"
+            type="submit" 
+            disabled={loading}>
+              LOG IN
+          </button>
         </form>
       </div>
-      <Link to="/forgot-password" m replace={true}>
-        Forgot password?
-      </Link>
-      <div>
+      <div className="bottom">
+        <Link className="login-link" to="/forgot-password" m replace={true}>
+          Forgot password?
+        </Link>
+        <br />
         Need an account?{" "}
-        <Link to="/signup" replace={true}>
+        <Link className="login-link" to="/signup" replace={true}>
           Sign Up
         </Link>
       </div>

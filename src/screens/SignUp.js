@@ -64,45 +64,49 @@ export default function SignUp() {
       <div className="subtitle">
         <h2>Choose Email and Password</h2>
       </div>
-        {error && <h3>{error}</h3>}
+        {error && <h3 className="errorProp">{error}</h3>}
         {currentUser && currentUser.email}
           <form onSubmit={handleSubmit}>
             <div className="inputAndLabel">
-                <label>
+                <label className="labelProp">
                   EMAIL
                 </label>
                   <input 
+                    className="inputProp"
                     type="email" 
                     value={email} 
                     onChange={handleEmailChange} 
                     placeholder="Enter your email"
                   />
                 <br />
-              <label>
+              <label className="labelProp">
               CREATE PASSWORD
             </label>
               <input
+                className="inputProp"
                 type="password"
                 value={password}
                 onChange={handlePasswordChange}
                 placeholder="Enter your password"
               />
             <br />
-            <label>
+            <label className="labelProp">
               CONFIRM PASSWORD
             </label>
               <input
+                className="inputProp"
                 type="password"
                 value={confirmPassword}
                 onChange={handleConfirmPasswordChange}
                 placeholder="Confirm your password"
               />
             <br />
-            <label>
+            <label className="labelProp">
               MAJOR
             </label>
               <input
                 // further change required
+                className="inputProp"
                 type="major"
                 value={major}
                 onChange={handleMajorChange}
@@ -110,7 +114,7 @@ export default function SignUp() {
               />
             <br />
             </div>
-              <button type="submit" disabled={loading} >REGISTER</button>
+              <button className="buttonProp" type="submit" disabled={loading} >REGISTER</button>
           </form>
       <div className="bottom">
         Already have an account?&nbsp;&nbsp;

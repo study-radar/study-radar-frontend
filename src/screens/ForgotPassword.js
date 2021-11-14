@@ -34,26 +34,36 @@ export default function ForgotPassword() {
   return (
     <>
       <div>
-        <h2>Reset Password Page</h2>
-        {message && <h3>{message}</h3>}
-        {error && <h3>{error}</h3>}
+        <h2 className="title">RESET PASSWORD</h2>
+        {message && <h3 className="errorProp">{message}</h3>}
+        {error && <h3 className="errorProp">{error}</h3>}
         <form onSubmit={handleSubmit}>
-          <label>
-            Email:
-            <input type="email" value={email} onChange={handleEmailChange} />
+        <label className="labelProp">
+            EMAIL
           </label>
+          <input 
+            className="inputProp"
+            type="email" 
+            value={email} 
+            onChange={handleEmailChange} />
           <br />
-          <input type="submit" value="Reset Password" disabled={loading} />
+          <button 
+            className="buttonProp"
+            type="submit" 
+            disabled={loading} >RESET</button>
         </form>
       </div>
-      <Link to="/login" replace={true}>
-        Go to Log In
-      </Link>
-      <div>
-        Need an account?{" "}
-        <Link to="/signup" replace={true}>
-          Sign Up
+      <div className="bottom">
+        Go to&nbsp;
+        <Link className="login-link" to="/login" replace={true}>
+          Log In
         </Link>
+        <div>
+          Need an account?{" "}
+          <Link className="login-link" to="/signup" replace={true}>
+            Sign Up
+          </Link>
+        </div>
       </div>
     </>
   );
