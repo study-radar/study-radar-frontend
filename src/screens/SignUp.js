@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import "./SignUp.css";
+
 
 export default function SignUp() {
-  // TODO: Get rid of current user, shouldn't have current user
   const { signUp, currentUser } = useAuth();
 
-  // Hardcoded values for testing
-  const [email, setEmail] = useState("studyradar@example.com");
-  const [password, setPassword] = useState("Password1234");
-  const [confirmPassword, setConfirmPassword] = useState("Password1234");
+  // the string in useState refers to first var (e.g. email)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [major, setMajor] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -24,29 +28,91 @@ export default function SignUp() {
       setError("");
       setLoading(true);
       await signUp(email, password);
+      navigate("/", { replace: true });
     } catch {
-      setError("Failed to create an account");
+        setError("Failed to create an account");
+      
     }
 
     setLoading(false);
   }
+
+  function handleEmailChange(event) {
+    setEmail(event.target.value);
+  }
+
+  function handlePasswordChange(event) {
+    setPassword(event.target.value);
+  }
+
+  function handleConfirmPasswordChange(event) {
+    setConfirmPassword(event.target.value);
+  }
+
+  function handleMajorChange(event) {
+    setMajor(event.target.value);
+  }
+
+  // If already signed in, go to homepage and not show this page
   return currentUser ? (
     <Navigate to="/" replace={true} />
   ) : (
     <>
-      <div>
-        <h2>Sign Up</h2>
-        {error && <h3>{error}</h3>}
-        {currentUser && currentUser.email}
-        {/* Create form */}
-        <button onClick={handleSubmit} disabled={loading}>
-          Create Account
-        </button>
-      </div>
-      <div>
-        Already have an account?{" "}
-        <Link to="/login" replace={true}>
-          Log In
+      <h2 className="title">REGISTER</h2>
+      <h2 className="subtitle">Choose Email and Password</h2>
+      {error && <h3>{error}</h3>}
+      {currentUser && currentUser.email}
+      <form onSubmit={handleSubmit}>
+        <div className="inputAndLabel">
+          <label>
+            EMAIL
+          </label>
+            <input 
+              type="email" 
+              value={email} 
+              onChange={handleEmailChange} 
+              placeholder="Enter your email"
+            />
+          <br />
+          <label>
+            CREATE PASSWORD
+          </label>
+            <input
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="Enter your password"
+            />
+          <br />
+          <label>
+            CONFIRM PASSWORD
+          </label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              placeholder="Confirm your password"
+            />
+          <br />
+          <label>
+            MAJOR
+          </label>
+          <input
+            // further change required
+            type="major"
+            value={major}
+            onChange={handleMajorChange}
+            placeholder="Enter your major"
+          />
+        <br />
+        </div>
+        <button type="submit" disabled={loading} >REGISTER</button>
+      </form>
+      <div className="bottom">
+        Already have an account?&nbsp;&nbsp;
+        <Link className="login-link" to="/login" replace={true}>
+          LOG IN HERE
+          <br /><br /><br /><br />
         </Link>
       </div>
     </>

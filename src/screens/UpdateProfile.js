@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { sendEmailVerification } from "@firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function UpdateProfile() {
-  const { signUp, updatePassword, updateEmail, currentUser } = useAuth();
+  const { updateUserPassword, updateUserEmail, currentUser } = useAuth();
 
   // Hardcoded values for testing
-  const [email, setEmail] = useState("studyradar@example.com");
-  const [password, setPassword] = useState("Password1234");
-  const [confirmPassword, setConfirmPassword] = useState("Password1234");
+  const [email, setEmail] = useState(currentUser.email);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [major, setMajor] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -19,18 +19,18 @@ export default function UpdateProfile() {
     e.preventDefault();
 
     // TODO: Test out edge cases, e.g. password is blank if they don't want to change
-    if (password !== confirmPassword) {
+    if (password && password !== confirmPassword) {
       return setError("Passwords do not match");
     }
 
     const promises = [];
     setError("");
     setLoading(true);
-    if (email !== currentUser.email) {
-      promises.push(updateEmail(email));
+    if (email && email !== currentUser.email) {
+      promises.push(updateUserEmail(email));
     }
     if (password) {
-      promises.push(updatePassword(password));
+      promises.push(updateUserPassword(password));
     }
     Promise.all(promises)
       .then(() => {
@@ -43,23 +43,77 @@ export default function UpdateProfile() {
         setLoading(false);
       });
   }
+
+  function handleGoBack() {
+    navigate(-1);
+  }
+
+  function handleEmailChange(event) {
+    setEmail(event.target.value);
+  }
+
+  function handlePasswordChange(event) {
+    setPassword(event.target.value);
+  }
+
+  function handleConfirmPasswordChange(event) {
+    setConfirmPassword(event.target.value);
+  }
+
+  function handleMajorChange(event) {
+    setMajor(event.target.value);
+  }
+
   return (
     <>
       <div>
-        <h2>Update Profile</h2>
+        <h2 className="title">UPDATE PROFILE</h2>
         {error && <h3>{error}</h3>}
-        {currentUser && currentUser.email}
-        {/* Create form */}
-        <button onClick={handleSubmit} disabled={loading}>
-          Update Password
-        </button>
+        {currentUser && <h2 className="subtitle">Current email: {currentUser.email}</h2>}
+        <form onSubmit={handleSubmit}>
+          <label>
+            EMAIL
+          </label>
+          <input
+              type="email"
+              value={email}
+              onChange={handleEmailChange}
+              required
+            />
+          <br />
+          <label>
+            PASSWORD
+          </label>
+          <input
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="Leave blank to keep password"
+            />
+          <br />
+          <label>
+            CONFIRM PASSWORD
+          </label>
+          <input
+              type="password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+            />
+          <br />
+          <label>
+            MAJOR
+          </label>
+          <input
+              // further change required
+              type="major"
+              value={major}
+              onChange={handleMajorChange}
+          />
+          <button type="submit" disabled={loading} >REGISTER</button>
+        </form>
       </div>
       <div>
-        Already have an account?
-        {/* Maybe replace with a button and use navigate() */}
-        <Link to="/" replace={true}>
-          Go Back
-        </Link>
+        <button onClick={handleGoBack}>Cancel</button>
       </div>
     </>
   );

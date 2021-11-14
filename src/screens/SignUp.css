@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Source+Code+Pro:wght@700&display=swap');
+
+/* notes:
+display: inline-block --> treats the div like a container, style applies to everything, like select the entire table
+display: flex --> allows resizing of the window
+flex-wrap: nowrap --> default is wrap, all in one line
+background-color --> good to see area enclosed
+ */
+
+.title {
+    font-size: 50px;
+    text-align: center;
+    color: #7AAEDE;
+    font-weight: 700;
+    margin-top: 100px;
+    font-family: 'Source Code Pro', monospace;
+}
+
+button:hover {
+    color: black;
+    background-color: #7AAEDE;
+}
+
+/* .background {
+    display: flex;
+    align-items: stretch;
+    text-align: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+} */
+
+h3 {
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
+    color: red;
+}
+
+.subtitle {
+    color: black;
+    margin-bottom: 50px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* .inputAndLabel { 
+    width: 80%; 
+    background-color: red;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin: 0 auto;
+    text-align: center;
+    text-align: left;
+    
+} */
+
+
+label {
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    /* margin can be percentage! */
+    margin-left: 20%; 
+    font-size: 18px;
+    display: block;
+    line-height : 0px;
+}
+
+input {
+    text-align: left;
+    padding-left: 10px;
+    width: 60%;
+    height: 40px;
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    /* padding-bottom: 100px; */
+    background-color: #efefef;
+    border-radius: 10px;
+    display: block;
+    margin:auto;
+}
+
+.login-link {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-size: 18px;
+    color: #7AAEDE;
+}
+
+button {
+    margin-top: 50px;
+
+    /* center the button */
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    background-color: black;
+    color: #7AAEDE;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: color 0.5s ease;
+}
+
+.bottom {
+    margin-top: 100px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+

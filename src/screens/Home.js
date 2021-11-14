@@ -26,6 +26,7 @@ export default function Home() {
       <h3>Email: {currentUser.email}</h3>
       {error && <h3>{error}</h3>}
       <Link to="/update-profile">Update Profile</Link>
+      <br />
       <button onClick={handleLogout}>Log Out</button>
     </>
   );

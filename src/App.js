@@ -2,6 +2,7 @@
 //import Navbar from "./components/Navbar";
 import React from "react";
 import { AuthProvider } from "./contexts/AuthContext";
+import { Container } from "react-bootstrap"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignUp from "./screens/SignUp";
 import Home from "./screens/Home";
@@ -10,12 +11,20 @@ import ForgotPassword from "./screens/ForgotPassword";
 import PrivateRoute from "./components/PrivateRoute";
 import UpdateProfile from "./screens/UpdateProfile";
 
+import "./screens/SignUp.css";
 function App() {
   return (
+    
     // <div className="App">
     //   <Navbar />
     //   <Landingpage />
     // </div>
+    
+    // <Container
+      // className="d-flex align-items-center justify-content-center"
+      // style={{minHeight: "100vh"}}
+    // >
+    /* <div className="w-100"> */
     <Router>
       <AuthProvider>
         <Routes>
@@ -35,13 +44,21 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path="signup" element={<SignUp />} />
+          <Route 
+            path="signup" 
+            element={
+                <SignUp />
+            } 
+          />
           <Route path="login" element={<Login />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
         </Routes>
       </AuthProvider>
     </Router>
-  );
+    /* </div> */
+    // </Container>
+    );
+ 
 }
 
 export default App;
