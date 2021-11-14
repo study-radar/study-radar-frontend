@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import "./SignUp.css";
 
 export default function UpdateProfile() {
   const { updateUserPassword, updateUserEmail, currentUser } = useAuth();
@@ -109,11 +110,10 @@ export default function UpdateProfile() {
               value={major}
               onChange={handleMajorChange}
           />
-          <button type="submit" disabled={loading} >REGISTER</button>
         </form>
       </div>
-      <div>
-        <button onClick={handleGoBack}>Cancel</button>
+      <button type="submit" disabled={loading}>CANCEL</button>
+      <div className="bottom">
       </div>
     </>
   );
