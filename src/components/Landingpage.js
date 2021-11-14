@@ -3,8 +3,8 @@ import './Landingpage.css'
 
 export default function Landingpage() {
   return (
-    <div>
-      
+    <div className='landingpage'>
+      <p>welcome to study radar</p>
     </div>
   )
 }
