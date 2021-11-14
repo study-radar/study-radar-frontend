@@ -27,6 +27,8 @@ export default function Home() {
       {error && <h3>{error}</h3>}
       <Link to="/update-profile">Update Profile</Link>
       <br />
+      <Link to="/calendar">Calendar</Link>
+      <br />
       <button onClick={handleLogout}>Log Out</button>
     </>
   );
