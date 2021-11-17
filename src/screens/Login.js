@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate, Navigate } from "react-router-dom";
+import "./SignUp.css";
 
 export default function Login() {
   // TODO: Get rid of current user, shouldn't have current user
@@ -41,34 +42,35 @@ export default function Login() {
     <Navigate to="/" replace={true} />
   ) : (
     <>
-      <div>
-        <h2>Log In Page</h2>
-        {error && <h3>{error}</h3>}
-        {currentUser && currentUser.email}
-        <form onSubmit={handleSubmit}>
+      <h2 className="title">LOG IN</h2>
+      {error && <h3>{error}</h3>}
+      {currentUser && currentUser.email}
+      <form onSubmit={handleSubmit}>
+        <div className="inputAndLabel">
           <label>
-            Email:
-            <input type="email" value={email} onChange={handleEmailChange} />
+            EMAIL
           </label>
+          <input type="email" value={email} onChange={handleEmailChange} />
           <br />
           <label>
-            Password:
-            <input
+            PASSWORD
+          </label>
+          <input
               type="password"
               value={password}
               onChange={handlePasswordChange}
             />
-          </label>
           <br />
-          <input type="submit" value="Log In" disabled={loading} />
-        </form>
-      </div>
-      <Link to="/forgot-password" m replace={true}>
-        Forgot password?
-      </Link>
-      <div>
+        </div>
+        <button type="submit" disabled={loading} >LOG IN</button>
+      </form>
+      <div className="bottom">
+        <Link className="login-link" to="/forgot-password" m replace={true}>
+          Forgot password?
+        </Link>
+        <br/>
         Need an account?{" "}
-        <Link to="/signup" replace={true}>
+        <Link className="login-link" to="/signup" replace={true}>
           Sign Up
         </Link>
       </div>
