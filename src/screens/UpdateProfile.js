@@ -112,9 +112,7 @@ export default function UpdateProfile() {
           />
         </form>
       </div>
-      <button className="submit" type="submit" disabled={loading}>CANCEL</button>
-      <div className="bottom">
-      </div>
+      <button className="submit" onClick={handleGoBack} type="submit" disabled={loading}>CANCEL</button>
     </>
   );
 }
