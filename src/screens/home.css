@@ -28,6 +28,11 @@ header {
     margin-left: 7px;
 }
 
+.logout:hover {
+    color: #7AAEDE;
+    background-color: white;
+}
+
 .home-link {
     color: #7AAEDE;
     margin-right: 15px;
