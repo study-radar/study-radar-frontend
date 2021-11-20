@@ -29,9 +29,9 @@ export default function Home() {
     <>
       <header>
         <div className="navbar">
-          <button onClick={handleLogout} className="logout">Log Out</button>
-          <Link to="/update-profile">Update Profile</Link> 
-          {/* <Link to="/calendar">Calendar</Link> */}
+          <button onClick={handleLogout} className="logout">LOG OUT</button>
+          <Link className="home-link" to="/update-profile">Update Profile</Link> 
+          <Link className="home-link" to="/calendar">Calendar</Link>
         </div>
       </header>
       <body>
