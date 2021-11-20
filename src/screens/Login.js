@@ -62,7 +62,7 @@ export default function Login() {
             />
           <br />
         </div>
-        <button type="submit" disabled={loading} >LOG IN</button>
+        <button className="submit" type="submit" disabled={loading} >LOG IN</button>
       </form>
       <div className="bottom">
         <Link className="login-link" to="/forgot-password" m replace={true}>

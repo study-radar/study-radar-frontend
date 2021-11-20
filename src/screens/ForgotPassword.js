@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import "./SignUp.css";
 
 export default function ForgotPassword() {
   const { resetPassword } = useAuth();
@@ -43,7 +44,7 @@ export default function ForgotPassword() {
           </label>
           <input type="email" value={email} onChange={handleEmailChange} />
           <br />
-          <button type="submit" disabled={loading} >RESET</button>
+          <button className="submit" type="submit" disabled={loading} >RESET</button>
         </form>
       </div>
       <div className="bottom">

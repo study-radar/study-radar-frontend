@@ -17,8 +17,8 @@ background-color --> good to see area enclosed
     font-family: 'Source Code Pro', monospace;
 }
 
-button:hover {
-    color: black;
+.submit:hover {
+    color: white;
     background-color: #7AAEDE;
 }
 
@@ -92,7 +92,7 @@ input {
     color: #7AAEDE;
 }
 
-button {
+.submit {
     margin-top: 50px;
 
     /* center the button */
@@ -117,6 +117,3 @@ button {
     font-size: 18px;
     font-weight: 700;
 }
-
-
-
