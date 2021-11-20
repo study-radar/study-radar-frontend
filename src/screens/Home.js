@@ -27,6 +27,7 @@ export default function Home() {
         <div className="navbar">
           <button onClick={handleLogout} className="logout">Log Out</button>
           <Link to="/update-profile">Update Profile</Link> 
+          <Link to="/calendar">Calendar</Link>
         </div>
       </header>
       <body>

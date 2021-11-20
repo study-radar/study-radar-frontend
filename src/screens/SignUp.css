@@ -30,7 +30,7 @@ background-color --> good to see area enclosed
     flex-direction: column;
 } */
 
-h3 {
+.errorProp {
     text-align: center;
     font-size: 30px;
     font-family: 'Roboto', sans-serif;
