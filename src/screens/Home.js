@@ -31,7 +31,6 @@ export default function Home() {
         <div className="navbar">
           <button onClick={handleLogout} className="logout">LOG OUT</button>
           <Link className="home-link" to="/update-profile">Update Profile</Link> 
-          <Link className="home-link" to="/calendar">Calendar</Link>
         </div>
       </header>
       <body>
