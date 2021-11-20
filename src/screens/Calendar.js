@@ -9,6 +9,13 @@ import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, Inject } from '@
 
 
 
+// const MyDiv = () => {
+//     const [sampleState, setState] = useState('hello world');
+//     render(){
+//        return <div>{sampleState}</div>
+//     }
+//  }
+
 class Calendar extends React.Component {
     constructor() {
         super(...arguments);
@@ -19,15 +26,11 @@ class Calendar extends React.Component {
                 EndTime: new Date(2018, 1, 15, 12, 30),
                 IsAllDay: false,
                 Status: 'Completed',
-                Priority: 'High'
+                Priority: 'High',
             }];
             document.getElementById('schedule');
+             
     }
-
-    // navigate = useNavigate();
-    // handleGoBack() {
-    //     navigate(-1);
-    // }
 
     render() {
         return <div><ScheduleComponent height='550px' selectedDate={new Date(2018, 1, 15)} eventSettings={{ dataSource: this.data,
@@ -43,8 +46,8 @@ class Calendar extends React.Component {
     </ScheduleComponent>
     <br />
     <button 
-            className = "buttonProp"
-            onclick = "useNavigate(-1)"
+            className = "submit"
+            // onclick = {useNavigate(-1)}
             // history.go(-1), history.back() --> doesn't work
             type="submit"
             

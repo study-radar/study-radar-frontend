@@ -71,7 +71,7 @@ export default function Login() {
         </form>
       </div>
       <div className="bottom">
-        <Link className="login-link" to="/forgot-password" m replace={true}>
+        <Link className="login-link" to="/forgot-password" replace={true}>
           Forgot password?
         </Link>
         <br />
