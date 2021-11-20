@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate, Navigate } from "react-router-dom";
+import "./SignUp.css";
 
 export default function Login() {
   // TODO: Get rid of current user, shouldn't have current user
