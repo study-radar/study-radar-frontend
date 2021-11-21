@@ -106,7 +106,7 @@ export default function SignUp() {
           />
         <br />
         </div>
-        <button type="submit" disabled={loading} >REGISTER</button>
+        <button className="submit" type="submit" disabled={loading} >REGISTER</button>
       </form>
       <div className="bottom">
         Already have an account?&nbsp;&nbsp;
