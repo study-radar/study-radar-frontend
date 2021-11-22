@@ -39,12 +39,17 @@ export default function Home() {
           </Link>
         </div>
       </header>
+      <div class="spacer">
+        &nbsp;
+      </div>
       <body className="w-screen h-screen flex bg-indigo-400">
-        <div className="w-full h-full bg-yellow-300">
-          <StudyGroupCardList />
-        </div>
-        <div className="container">
-          <CalendarContainer calendar={my_calendar} />
+        <div className='wrap'>
+          <div className="w-full h-full bg-yellow-300 box">
+            <StudyGroupCardList />
+          </div>
+          <div className="container box">
+            <CalendarContainer calendar={my_calendar} />
+          </div>
         </div>
       </body>
     </div>
