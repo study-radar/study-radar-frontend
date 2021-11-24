@@ -43,7 +43,11 @@ header {
   font-weight: 700;
 }
 
-.wrap{display:flex;}
+.wrap{
+    display:flex;
+    margin-top: 60px;
+}
+
 .box{
 height: 100vh;
     width: 50vw;
