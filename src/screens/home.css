@@ -49,7 +49,6 @@ header {
 }
 
 .box{
-height: 100vh;
     width: 50vw;
     background-color: #7aaede;
     overflow: scroll;
