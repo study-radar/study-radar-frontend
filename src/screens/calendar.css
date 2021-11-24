@@ -1,13 +1,7 @@
 .container {
     display: flex;
-    padding-top: 60px;
     padding-left: 0px;
     padding-right: 0px;
-}
-
-.feed {
-    flex-grow: 1;
-    width: 50%;
 }
 
 .calendar {

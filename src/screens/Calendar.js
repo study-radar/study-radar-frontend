@@ -30,11 +30,8 @@ class Calendar extends React.Component {
                 </div>
             </header>
             <div className="container">
-                <div className="feed">
-                    FEED
-                </div>
                 <div class="calendar">
-                    <ScheduleComponent height="650px" selectedDate={new Date(new Date().setHours(new Date().getHours() - 3))} eventSettings={{ dataSource: this.data,
+                    <ScheduleComponent selectedDate={new Date(new Date().setHours(new Date().getHours() - 3))} eventSettings={{ dataSource: this.data,
                         fields: {
                             id: 'Id', 
                             subject: { name: 'Subject' },
