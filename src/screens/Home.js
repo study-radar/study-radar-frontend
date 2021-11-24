@@ -46,7 +46,6 @@ export default function Home() {
               <div className="searchPrompt">
                 Search for the study sessions you want to join:
               </div>
-              <br/>
               <input type="text" placeholder="Search.."/>
             </div>
             <StudyGroupCardList />
