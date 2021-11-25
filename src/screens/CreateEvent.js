@@ -27,6 +27,13 @@ export default function CreateEvent() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    
+    for(const field of Object.keys(form)){
+      if(!form[field]){
+        setError(`Error: ${field} is empty...`)
+        return
+      }
+    }
 
     const { data, error } = await apiClient.createGroup({
       name: form.name,
@@ -36,6 +43,7 @@ export default function CreateEvent() {
     });
     if (data) {
       // update feed
+      
       navigate("/");
     } else if (error) {
       console.error(error);
@@ -50,28 +58,28 @@ export default function CreateEvent() {
       <h2 className="title">Create Event</h2>
       <h2 className="subtitle">Choose Email and Password</h2>
       {/* {error && <h3>{error}</h3>} */}
-      {currentUser && currentUser.email}
       <form onSubmit={handleSubmit}>
         <div className="inputAndLabel">
           <label>Name of Event</label>
           <input
-            type="email"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            type="text"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
             placeholder="Enter your name of event"
           />
           <br />
           <label>Description</label>
           <input
-            type="password"
-            value={form.password}
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
+            type="text"
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
             placeholder="Enter your Description"
           />
           <br />
           <label>Capacity</label>
           <input
             type="number"
+            value={form.capacity}
             onChange={(e) => setForm({ ...form, capacity: e.target.value })}
             defaultValue={form.capacity}
           />
@@ -79,12 +87,13 @@ export default function CreateEvent() {
           <label>Data and Time</label>
           <input
             type="datetime-local"
+            value={form.dateTime}
             onChange={(e) => setForm({ ...form, dateTime: e.target.value })}
             defaultValue={form.capacity}
           />
           <br />
         </div>
-        <p style={{ color: "red", textAlign: "center" }}>{error}</p>
+        <p style={{ color: "red", textAlign: "center", fontSize: '20px' }}>{error}</p>
         {/* <button className="submit" type="submit" disabled={loading} >REGISTER</button> */}
         <button className="submit" type="submit">
           Create Event

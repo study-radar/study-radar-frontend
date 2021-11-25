@@ -128,6 +128,7 @@ export function AuthProvider({ children }) {
     fetchUser();
   }, []);
 
+
   useEffect(() => {
     fetchUser()
       // .then(data => {

@@ -7,6 +7,8 @@ import StudyGroupCardList from "../components/StudyGroupCardList";
 import "./home.css";
 import "./feed.css";
 import StudyGroupCard from "../components/StudyGroupCard";
+import apiClient from "../services/apiClient";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 export default function Home() {
   const [error, setError] = useState("");
@@ -17,11 +19,11 @@ export default function Home() {
 
   var my_calendar = new Calendar();
 
-  const [groups, setGroups] = useState([...groupsConstant])
+  const [userGroups, setUserGroups] = useState([...groupsConstant])
 
   async function handleLogout() {
     setError("");
-
+ 
     try {
       await logOutPostgres();
       navigate("/signup", { replace: true });
@@ -29,12 +31,33 @@ export default function Home() {
       setError("Failed to logout");
     }
   }
-
-  const props = {
-    groups,
+  async function fetchGroupsForUser() {
+    const { data, error } = await apiClient.getGroupsForUser()
+    if (data) {
+      console.log('groups for user');
+      console.log(data);
+      setUserGroups([...userGroups, ...data])
+    } else if (error) {
+      console.error(error);
+    }
   }
-
-  
+  async function fetchGroups() {
+    const { data, error } = await apiClient.getAllGroups()
+    if (data) {
+      console.log('groups');
+      console.log(data);
+    } else if (error) {
+      console.error(error);
+    }
+  }
+  const props = {
+    userGroups,
+    fetchGroups,
+    fetchGroupsForUser
+  }
+  React.useEffect(()=>{
+    fetchGroupsForUser()
+  }, [])
 
   return !currentUser ? (
     <Navigate to="/signup" replace={true} />
@@ -64,7 +87,7 @@ export default function Home() {
             </div>
             {/* <StudyGroupCardList /> */}
             {
-            groups.map((group) => (
+            userGroups.map((group) => (
               <StudyGroupCard
                 groupName={group.groupName}
                 subject={group.subject}
@@ -83,9 +106,14 @@ export default function Home() {
           </div>
         </div>
       </body>
+
+      <Routes>
+        
+      </Routes>
     </div>
   );
 }
+
 
 const _groupsConstant = []
 const groupsConstant = [
