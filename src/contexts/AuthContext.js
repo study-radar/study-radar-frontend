@@ -36,9 +36,10 @@ export function AuthProvider({ children }) {
     // If successful, set the current user and token
     if (data.data) {
       setCurrentUser(data.data.user);
-      localStorage.setItem(apiClient.tokenName, data.data.token);
+      apiClient.setToken(data.data.token);
     } else if (data.error) {
       setCurrentUser(null);
+      localStorage.removeItem(apiClient.tokenName);
       throw new Error("Error logging in");
     }
 
@@ -49,11 +50,34 @@ export function AuthProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   }
 
+  async function logInPostgres(email, password) {
+    const data = await apiClient.loginUser({
+      email,
+      password,
+    });
+
+    console.log("Log In Postgres");
+    console.log(data);
+
+    // If successful, set the current user and token
+    if (data.data) {
+      setCurrentUser(data.data.user);
+      apiClient.setToken(data.data.token);
+    } else if (data.error) {
+      setCurrentUser(null);
+      localStorage.removeItem(apiClient.tokenName);
+      throw new Error("Error logging in");
+    }
+
+    return data;
+  }
+
   function logOut() {
     return signOut(auth);
   }
 
   function logOutPostgres() {
+    // TODO: Is there some way of removing token/logging out with apiClient?
     setCurrentUser(null);
     localStorage.removeItem(apiClient.tokenName);
   }
@@ -104,6 +128,7 @@ export function AuthProvider({ children }) {
     signUp,
     signUpPostgres,
     logIn,
+    logInPostgres,
     logOut,
     logOutPostgres,
     resetPassword,
