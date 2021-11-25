@@ -34,6 +34,9 @@ export default function Home() {
           <button onClick={handleLogout} className="logout">
             LOG OUT
           </button>
+          <Link className="home-link" to="/create-event">
+            Create Event
+          </Link>
           <Link className="home-link" to="/update-profile">
             Update Profile
           </Link>

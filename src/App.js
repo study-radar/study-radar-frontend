@@ -14,6 +14,7 @@ import UpdateProfile from "./screens/UpdateProfile";
 
 
 import apiClient from "./services/apiClient";
+import CreateEvent from "./screens/CreateEvent";
 
 // import "./screens/SignUp.css";
 // import "./screens/Calendar.css";
@@ -75,6 +76,9 @@ function App() {
                 <ForgotPassword />
             } 
           />
+          <Route path="create-event"
+            element={<CreateEvent />}
+            />
         </Routes>
       </AuthProvider>
     </Router>
