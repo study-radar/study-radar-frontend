@@ -4,7 +4,6 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import "./SignUp.css";
 import apiClient from "../services/apiClient";
 
-
 export default function CreateEvent() {
   const { signUp, currentUser, setCurrentUser } = useAuth();
 
@@ -19,36 +18,34 @@ export default function CreateEvent() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    name: '',
-    description: '',
+    name: "",
+    description: "",
     capacity: 3,
-    dateTime: ''
+    dateTime: "",
+  });
+  const [error, setError] = useState("");
 
-  })
-  const [error, setError] = useState('')
+  async function handleSubmit(e) {
+    e.preventDefault();
 
-  async function handleSubmit(e){
-    e.preventDefault()
-
-    const {data, error} = await apiClient.createGroup({
-      "name": form.name,
-      "description": form.description,
-      "date_time": form.dateTime,
-      "capacity": form.capacity,
-    })
-    if(data){
+    const { data, error } = await apiClient.createGroup({
+      name: form.name,
+      description: form.description,
+      date_time: form.dateTime,
+      capacity: form.capacity,
+    });
+    if (data) {
       // update feed
-      navigate('/')
-    }else if(error){
+      navigate("/");
+    } else if (error) {
       console.error(error);
-      return
+      return;
     }
-    
   }
 
   // If already signed in, go to homepage and not show this page
-  return currentUser ? (
-    <Navigate to="/" replace={true} />
+  return !currentUser ? (
+    <Navigate to="/signup" replace={true} />
   ) : (
     <>
       <h2 className="title">Create Event</h2>
@@ -57,40 +54,42 @@ export default function CreateEvent() {
       {currentUser && currentUser.email}
       <form onSubmit={handleSubmit}>
         <div className="inputAndLabel">
-          <label>
-            Name of Event
-          </label>
+          <label>Name of Event</label>
           <input
             type="email"
             value={form.email}
-            onChange={e => setForm({...form, email: e.target.value})}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
             placeholder="Enter your name of event"
           />
           <br />
-          <label>
-            Description
-          </label>
+          <label>Description</label>
           <input
             type="password"
             value={form.password}
-            onChange={e => setForm({...form, password: e.target.value})}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
             placeholder="Enter your Description"
           />
           <br />
-          <label>
-            Capacity
-          </label>
-          <input type="number" onChange={e => setForm({...form, capacity: e.target.value})} defaultValue={form.capacity}/> 
+          <label>Capacity</label>
+          <input
+            type="number"
+            onChange={(e) => setForm({ ...form, capacity: e.target.value })}
+            defaultValue={form.capacity}
+          />
           <br />
-          <label>
-            Data and Time
-          </label>
-            <input type="datetime-local" onChange={e => setForm({ ...form, dateTime: e.target.value })} defaultValue={form.capacity} />
+          <label>Data and Time</label>
+          <input
+            type="datetime-local"
+            onChange={(e) => setForm({ ...form, dateTime: e.target.value })}
+            defaultValue={form.capacity}
+          />
           <br />
         </div>
-        <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>
+        <p style={{ color: "red", textAlign: "center" }}>{error}</p>
         {/* <button className="submit" type="submit" disabled={loading} >REGISTER</button> */}
-        <button className="submit" type="submit"  >Create Event</button>
+        <button className="submit" type="submit">
+          Create Event
+        </button>
       </form>
       <div className="bottom">
         {/* Already have an account?&nbsp;&nbsp; */}

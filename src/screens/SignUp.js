@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import "./SignUp.css";
-import apiClient from "../services/apiClient";
 
 export default function SignUp() {
-  const { signUp, currentUser, setCurrentUser } = useAuth();
+  const { signUpPostgres, currentUser } = useAuth();
 
   // the string in useState refers to first var (e.g. email)
   const [email, setEmail] = useState("");
@@ -16,12 +15,6 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-
-  // React.useEffect(()=>{
-  //   if(currentUser?.email){
-  //     navigate('/')
-  //   }
-  // }, [currentUser])
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -34,26 +27,22 @@ export default function SignUp() {
       setError("");
       setLoading(true);
       // await signUp(email, password);
-      const data = await apiClient.signUpUser({
-        email,
-        password,
-      });
+      const data = await signUpPostgres(email, password);
 
-      if (data.data) {
-        console.log("good");
-        console.log(data.data);
-      } else if (data.error) {
-        console.log("bad");
-        setError("Bad");
-        throw error;
-      }
+      // if (data.data) {
+      //   console.log("good");
+      //   console.log(data.data);
+      // } else if (data.error) {
+      //   console.log("bad");
+      //   setError("Bad");
+      //   throw error;
+      // }
 
       navigate("/", { replace: true });
-    } catch {
+    } catch (signUpError) {
       setError("Failed to create an account");
     }
 
-    navigate("/", { replace: true });
     setLoading(false);
   }
 
