@@ -16,6 +16,7 @@ export default function SignUp() {
 
   const navigate = useNavigate();
 
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -43,6 +44,7 @@ export default function SignUp() {
       setError("Failed to create an account");
     }
 
+    navigate("/", { replace: true });
     setLoading(false);
   }
 

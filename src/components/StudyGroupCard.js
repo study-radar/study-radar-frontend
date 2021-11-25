@@ -1,4 +1,6 @@
 import React from "react";
+import styled from 'styled-components'
+import apiClient from "../services/apiClient";
 
 export default function StudyGroupCard(props) {
   /* Contained inside of props
@@ -10,6 +12,27 @@ export default function StudyGroupCard(props) {
     Other people attending
     Group creator
     */
+
+    const JoinButton = styled("button")`
+      background-color: #4CAF50; /* Green */
+      border: none;
+      color: white;
+      padding: 5px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 40%;
+      font-size: 15px;
+
+  /* background: #7aade; */
+    `
+
+  async function handleJoinEvent(){
+    const {data, error} = await apiClient.addUserToGroup({
+      groupId: 3
+    })
+  }
 
   return (
     <div
@@ -35,7 +58,9 @@ export default function StudyGroupCard(props) {
       >
         {props.description}
       </div>
-      {/* <button>jfsdlkjfsdklfj</button> */}
+      <div style={{ width: '100%', display: 'flex', alignContent: 'center', justifyContent: 'center'}}>
+        <JoinButton onClick={handleJoinEvent}>Join</JoinButton>
+      </div>
     </div>
   );
 }

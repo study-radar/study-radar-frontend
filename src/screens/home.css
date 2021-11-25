@@ -50,7 +50,8 @@ header {
 
 .box{
     width: 50vw;
-    background-color: #7aaede;
+    /* background-color: #7aaede; */
+    background: white;
     overflow: scroll;
 }
 
