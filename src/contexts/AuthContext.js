@@ -43,6 +43,8 @@ export function AuthProvider({ children }) {
     return updatePassword(currentUser, password);
   }
 
+  // Check local storage for the token to see if user is logged in
+  // Get me???
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
