@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import "./SignUp.css";
+import apiClient from "../services/apiClient";
 
 export default function Login() {
   // TODO: Get rid of current user, shouldn't have current user
@@ -21,7 +22,16 @@ export default function Login() {
     try {
       setError("");
       setLoading(true);
-      await logIn(email, password);
+      // await logIn(email, password);
+      const {data, error} = await apiClient.loginUser({
+        email, password
+      })
+      if (data){
+        // localStorage.setItem('studyradar', data.token)
+        apiClient.setToken(data.token)
+      }else if(error){
+        return setError(data.error)
+      }
       navigate("/", { replace: true });
     } catch {
       setError("Failed to log in");

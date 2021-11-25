@@ -1,7 +1,7 @@
 //import Landingpage from "./components/Landingpage";
 //import Navbar from "./components/Navbar";
 import React from "react";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { Container } from "react-bootstrap"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignUp from "./screens/SignUp";
@@ -12,10 +12,15 @@ import ForgotPassword from "./screens/ForgotPassword";
 import PrivateRoute from "./components/PrivateRoute";
 import UpdateProfile from "./screens/UpdateProfile";
 
+
+import apiClient from "./services/apiClient";
+
 // import "./screens/SignUp.css";
 // import "./screens/Calendar.css";
 
 function App() {
+
+
   return (
     
     // <div className="App">
@@ -34,17 +39,13 @@ function App() {
           <Route
             path="/"
             element={
-              <PrivateRoute>
                 <Home />
-              </PrivateRoute>
             }
           />
           <Route
             path="update-profile"
             element={
-              <PrivateRoute>
                 <UpdateProfile />
-              </PrivateRoute>
             }
           />
           <Route 

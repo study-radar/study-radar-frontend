@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import "./SignUp.css";
+import apiClient from "../services/apiClient";
 
 
 export default function SignUp() {
-  const { signUp, currentUser } = useAuth();
+  const { signUp, currentUser, setCurrentUser } = useAuth();
+
+  
 
   // the string in useState refers to first var (e.g. email)
   const [email, setEmail] = useState("");
@@ -17,6 +20,12 @@ export default function SignUp() {
 
   const navigate = useNavigate();
 
+  // React.useEffect(()=>{
+  //   if(currentUser?.email){
+  //     navigate('/')
+  //   }
+  // }, [currentUser])
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -24,16 +33,33 @@ export default function SignUp() {
       return setError("Passwords do not match");
     }
 
-    try {
-      setError("");
-      setLoading(true);
-      await signUp(email, password);
-      navigate("/", { replace: true });
-    } catch {
-        setError("Failed to create an account");
-      
+    setError("");
+    setLoading(true);
+    // await signUp(email, password);
+
+    const {data, error}= await apiClient.signUpUser({
+      email,
+      password
+    })
+    console.log('data');
+    console.log(data);
+    if (data) {
+      console.log('good');
+      console.log(data);
+
+      // localStorage.setItem('studyradar', data.data.token)
+      apiClient.setToken(data.token)
+
+    }
+    else if (error) {
+      console.log('bad');
+      console.log('erorr',error);
+      return setError(error)
     }
 
+    
+
+    navigate("/", { replace: true });
     setLoading(false);
   }
 
@@ -60,7 +86,7 @@ export default function SignUp() {
     <>
       <h2 className="title">REGISTER</h2>
       <h2 className="subtitle">Choose Email and Password</h2>
-      {error && <h3>{error}</h3>}
+      {/* {error && <h3>{error}</h3>} */}
       {currentUser && currentUser.email}
       <form onSubmit={handleSubmit}>
         <div className="inputAndLabel">
@@ -106,7 +132,9 @@ export default function SignUp() {
           />
         <br />
         </div>
-        <button className="submit" type="submit" disabled={loading} >REGISTER</button>
+        <p style={{color: 'red', textAlign: 'center'}}>{ error }</p>
+        {/* <button className="submit" type="submit" disabled={loading} >REGISTER</button> */}
+        <button className="submit" type="submit"  >REGISTER</button>
       </form>
       <div className="bottom">
         Already have an account?&nbsp;&nbsp;

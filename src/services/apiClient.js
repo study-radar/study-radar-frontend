@@ -1,10 +1,9 @@
 import axios from "axios";
-
 class ApiClient {
   constructor(remoteHostUrl) {
     this.remoteHostUrl = remoteHostUrl;
     this.token = null;
-    this.tokenName = "travelester_token";
+    this.tokenName = "studyradar";
   }
   getTokenName() {
     return this.tokenName;
@@ -28,15 +27,15 @@ class ApiClient {
     }
 
     try {
-      // console.log("AXIOS CALL " + endpoint, { url, method, data, headers });
+      console.log("AXIOS CALL " + endpoint, { url, method, data, headers });
       const res = await axios({ url, method, data, headers });
-      // console.log("AXIOS RES " + endpoint, res.data);
+      console.log("AXIOS RES " + endpoint, res.data);
 
       return { data: res.data, error: null };
     } catch (error) {
-      console.error({ errorResponse: error.response });
+      // console.error({ errorResponse: error.response.data.error });
       const message = error?.response?.data?.error?.message;
-      console.log(message, error);
+      console.error(message, error);
 
       return { data: null, error: message || String(error) };
     }
