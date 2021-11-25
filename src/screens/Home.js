@@ -42,6 +42,12 @@ export default function Home() {
       <body className="w-screen h-screen flex bg-indigo-400">
         <div className='wrap'>
           <div className="w-full h-full bg-yellow-300 box">
+            <div class="topnav">
+              <div className="searchPrompt">
+                Search for the study sessions you want to join:
+              </div>
+              <input type="text" placeholder="Search.."/>
+            </div>
             <StudyGroupCardList />
           </div>
           <div className="container box">
