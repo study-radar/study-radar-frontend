@@ -34,6 +34,9 @@ export default function Home() {
           <button onClick={handleLogout} className="logout">
             LOG OUT
           </button>
+          <Link className="home-link" to="/create-event">
+            Create Event
+          </Link>
           <Link className="home-link" to="/update-profile">
             Update Profile
           </Link>
@@ -42,6 +45,12 @@ export default function Home() {
       <body className="w-screen h-screen flex bg-indigo-400">
         <div className='wrap'>
           <div className="w-full h-full bg-yellow-300 box">
+            <div class="topnav">
+              <div className="searchPrompt">
+                Search for the study sessions you want to join:
+              </div>
+              <input type="text" placeholder="Search.."/>
+            </div>
             <StudyGroupCardList />
           </div>
           <div className="container box">

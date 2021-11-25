@@ -5,7 +5,7 @@ import "./SignUp.css";
 import apiClient from "../services/apiClient";
 
 export default function SignUp() {
-  const { signUp, currentUser } = useAuth();
+  const { signUp, currentUser, setCurrentUser } = useAuth();
 
   // the string in useState refers to first var (e.g. email)
   const [email, setEmail] = useState("");
@@ -16,6 +16,12 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  // React.useEffect(()=>{
+  //   if(currentUser?.email){
+  //     navigate('/')
+  //   }
+  // }, [currentUser])
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -47,6 +53,7 @@ export default function SignUp() {
       setError("Failed to create an account");
     }
 
+    navigate("/", { replace: true });
     setLoading(false);
   }
 
@@ -73,7 +80,7 @@ export default function SignUp() {
     <>
       <h2 className="title">REGISTER</h2>
       <h2 className="subtitle">Choose Email and Password</h2>
-      {error && <h3>{error}</h3>}
+      {/* {error && <h3>{error}</h3>} */}
       {currentUser && currentUser.email}
       <form onSubmit={handleSubmit}>
         <div className="inputAndLabel">

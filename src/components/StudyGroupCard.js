@@ -35,6 +35,7 @@ export default function StudyGroupCard(props) {
       >
         {props.description}
       </div>
+      {/* <button>jfsdlkjfsdklfj</button> */}
     </div>
   );
 }

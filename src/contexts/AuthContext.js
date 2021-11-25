@@ -8,6 +8,8 @@ import {
   updateEmail,
   updatePassword,
 } from "firebase/auth";
+import apiClient from "../services/apiClient";
+import { Link, useNavigate } from "react-router-dom";
 
 const AuthContext = React.createContext();
 
@@ -18,6 +20,9 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+
+  
+  const navigate = useNavigate();
 
   function signUp(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -53,6 +58,38 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
+  useEffect(() => {
+    fetchUser()
+      .then(res => {
+        console.log(res);
+        if(res)
+          navigate('/')
+
+      })
+    
+  }, [])
+  useEffect(() => {
+    if(currentUser)
+      navigate('/')
+  }, [currentUser])
+
+  async function fetchUser() {
+
+    // const token = localStorage.getItem('studyradar')
+    apiClient.setToken(localStorage.getItem('studyradar'))
+    const { data, error } = await apiClient.getMe()
+    if (data) {
+      console.log('logged in');
+      setCurrentUser(data.user)
+      return true
+    }
+    else if (error) {
+      console.log('logged out');
+
+    }
+
+  }
+
   const value = {
     currentUser,
     signUp,
@@ -68,3 +105,4 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+
