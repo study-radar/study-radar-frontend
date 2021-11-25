@@ -4,10 +4,8 @@ import { Link, useNavigate, Navigate } from "react-router-dom";
 import "./SignUp.css";
 
 export default function Login() {
-  // TODO: Get rid of current user, shouldn't have current user
-  const { logIn, currentUser } = useAuth();
+  const { logInPostgres, currentUser } = useAuth();
 
-  // Hardcoded values for testing
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -21,7 +19,14 @@ export default function Login() {
     try {
       setError("");
       setLoading(true);
-      await logIn(email, password);
+      // await logIn(email, password);
+      const data = await logInPostgres(email, password);
+      // if (data) {
+      //   // localStorage.setItem('studyradar', data.token)
+      //   apiClient.setToken(data.token);
+      // } else if (error) {
+      //   return setError(data.error);
+      // }
       navigate("/", { replace: true });
     } catch {
       setError("Failed to log in");
@@ -47,27 +52,26 @@ export default function Login() {
         {error && <h3 className="errorProp">{error}</h3>}
         {currentUser && currentUser.email}
         <form onSubmit={handleSubmit}>
-          <label className="labelProp">
-            EMAIL
-            </label>
-            <input 
-              className = "inputProp"
-              type="email" 
-              value={email} 
-              onChange={handleEmailChange} />
-          
+          <label className="labelProp">EMAIL</label>
+          <input
+            className="inputProp"
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+          />
+
           <br />
-          <label className="labelProp">
-          PASSWORD
-          </label>
-            <input
-              className = "inputProp"
-              type="password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
+          <label className="labelProp">PASSWORD</label>
+          <input
+            className="inputProp"
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
           <br />
-        <button className="submit" type="submit" disabled={loading} >LOG IN</button>
+          <button className="submit" type="submit" disabled={loading}>
+            LOG IN
+          </button>
         </form>
       </div>
       <div className="bottom">

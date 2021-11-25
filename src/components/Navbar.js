@@ -17,6 +17,7 @@ export default function Navbar() {
           <p className="bg-green-400">Login</p>
           <p>Signup</p>
         </div>
+          <p>Create Event</p>
       </div>
     </>
   );

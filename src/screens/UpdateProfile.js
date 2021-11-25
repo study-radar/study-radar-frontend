@@ -7,7 +7,7 @@ export default function UpdateProfile() {
   const { updateUserPassword, updateUserEmail, currentUser } = useAuth();
 
   // Hardcoded values for testing
-  const [email, setEmail] = useState(currentUser.email);
+  const [email, setEmail] = useState(currentUser?.email);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [major, setMajor] = useState("");

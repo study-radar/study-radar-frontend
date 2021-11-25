@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.calendar {
+    width: 50%;
+    flex-grow: 1;
+}

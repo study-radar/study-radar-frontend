@@ -1,12 +1,11 @@
 
 import * as React from 'react';
-// import React, { useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import * as ReactDOM from 'react-dom';
 import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, Inject } from '@syncfusion/ej2-react-schedule';
+import "./calendar.css";
 
+import apiClient from '../services/apiClient';
 
 
 class Calendar extends React.Component {
@@ -15,45 +14,39 @@ class Calendar extends React.Component {
         this.data = [{
                 Id: 2,
                 Subject: 'Meeting',
-                StartTime: new Date(2018, 1, 15, 10, 0),
-                EndTime: new Date(2018, 1, 15, 12, 30),
+                StartTime: new Date(new Date().setHours(new Date().getHours() - 3)),
+                EndTime: new Date(new Date().setHours(new Date().getHours() + 3)),
                 IsAllDay: false,
                 Status: 'Completed',
                 Priority: 'High'
             }];
-            document.getElementById('schedule');
+            // document.getElementById('schedule');
+    }
+    async submitEvent(){
+       const returnedGroup = await apiClient.createGroup({
+
+       })
     }
 
-    // navigate = useNavigate();
-    // handleGoBack() {
-    //     navigate(-1);
-    // }
-
     render() {
-        return <div><ScheduleComponent height='550px' selectedDate={new Date(2018, 1, 15)} eventSettings={{ dataSource: this.data,
-            fields: {
-                id: 'Id', 
-                subject: { name: 'Subject' },
-                isAllDay: { name: 'IsAllDay' },
-                startTime: { name: 'StartTime' },
-                endTime: { name: 'EndTime' }
-            }
-        }}>
-      <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
-    </ScheduleComponent>
-    <br />
-    <button 
-            className = "buttonProp"
-            onclick = "useNavigate(-1)"
-            // history.go(-1), history.back() --> doesn't work
-            type="submit"
-            
-            // onclick = "/"
-            // disabled={loading}
-            >BACK TO HOMEPAGE
-    </button>
-    </div>;
-    
+        return <div className="home">
+            <header>
+                <div className="navbar">
+                {/* <button onClick={handleLogout} className="logout">Log Out</button> */}
+                <Link to="/update-profile">Update Profile</Link> 
+                </div>
+            </header>
+            <div className="container">
+                <div className="feed">
+                    FEED
+                </div>
+                <div class="calendar">
+                    <ScheduleComponent selectedDate={new Date(new Date().setHours(new Date().getHours() - 3))} eventSettings={{ dataSource: this.data }} enablePersistence={true}>
+                    <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
+                    </ScheduleComponent>
+                </div>
+            </div>
+        </div>;
     }
 };
 
