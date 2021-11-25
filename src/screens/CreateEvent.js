@@ -43,7 +43,6 @@ export default function CreateEvent() {
     }
   }
 
-  // If already signed in, go to homepage and not show this page
   return !currentUser ? (
     <Navigate to="/signup" replace={true} />
   ) : (

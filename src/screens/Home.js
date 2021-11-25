@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import CalendarContainer from "../components/calendar/CalendarContainer";
 import Calendar from "./Calendar";
@@ -10,7 +10,7 @@ import "./feed.css";
 export default function Home() {
   const [error, setError] = useState("");
 
-  const { currentUser, logOut } = useAuth();
+  const { currentUser, logOutPostgres } = useAuth();
 
   const navigate = useNavigate();
 
@@ -20,14 +20,16 @@ export default function Home() {
     setError("");
 
     try {
-      await logOut();
+      await logOutPostgres();
       navigate("/signup", { replace: true });
     } catch {
       setError("Failed to logout");
     }
   }
 
-  return (
+  return !currentUser ? (
+    <Navigate to="/signup" replace={true} />
+  ) : (
     <div className="flex flex-col">
       <header>
         <div className="navbar">
@@ -43,13 +45,13 @@ export default function Home() {
         </div>
       </header>
       <body className="w-screen h-screen flex bg-indigo-400">
-        <div className='wrap'>
+        <div className="wrap">
           <div className="w-full h-full bg-yellow-300 box">
             <div class="topnav">
               <div className="searchPrompt">
                 Search for the study sessions you want to join:
               </div>
-              <input type="text" placeholder="Search.."/>
+              <input type="text" placeholder="Search.." />
             </div>
             <StudyGroupCardList />
           </div>

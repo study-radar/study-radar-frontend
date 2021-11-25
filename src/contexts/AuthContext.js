@@ -53,6 +53,11 @@ export function AuthProvider({ children }) {
     return signOut(auth);
   }
 
+  function logOutPostgres() {
+    setCurrentUser(null);
+    localStorage.removeItem(apiClient.tokenName);
+  }
+
   function resetPassword(email) {
     return sendPasswordResetEmail(auth, email);
   }
@@ -100,6 +105,7 @@ export function AuthProvider({ children }) {
     signUpPostgres,
     logIn,
     logOut,
+    logOutPostgres,
     resetPassword,
     updateUserEmail,
     updateUserPassword,
