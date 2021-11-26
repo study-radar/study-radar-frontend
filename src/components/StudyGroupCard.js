@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from 'styled-components'
 import apiClient from "../services/apiClient";
 import { useAuth } from "../contexts/AuthContext";
@@ -7,20 +7,11 @@ export default function StudyGroupCard(props) {
   const {groups, setGroups, userGroups, fetchGroups, fetchGroupsForUser} = props
 
   const { signUp, currentUser, setCurrentUser } = useAuth();
+  const [isJoinable, setIsJoinable] = useState(!groups.map(({id})=>id).includes(props.id) && props.numAttendence < props.capacity)
 
   const [joinWidget, setJoinWidget] = React.useState()
   
-  // console.log(props);
-  /* Contained inside of props
-    Study Group Name
-    Subject
-    Location
-    Picture
-    Description
-    Other people attending
-    Group creator
-    */
-
+ 
     const JoinButton = styled("button")`
       background-color: #4CAF50; /* Green */
       border: none;
@@ -55,6 +46,12 @@ export default function StudyGroupCard(props) {
 
     return  <p>Unavailable</p>
   }
+  function _getJoinWidget(a){
+    if(a===0)  return <JoinButton onClick={handleJoinEvent}>Join</JoinButton>
+    if(a===1)  return <LeaveButton onClick={handleLeaveEvent}>Leave</LeaveButton>
+
+    return  <p>Unavailable</p>
+  }
   function userInGroup(groupId, a,b){
     const groupIds = userGroups.map(({ id }) => id)
     return groupIds.includes(groupId)
@@ -69,9 +66,11 @@ export default function StudyGroupCard(props) {
       console.log('user joined group');
       console.log(data);
       fetchGroups()
-      setGroups(g => ({...g}))
+      // setIsJoinable(!isJoinable)
+      setJoinWidget(_getJoinWidget(1))
+
     }else if(error) console.error(error);
-   
+    
 
   }
   async function handleLeaveEvent(){
@@ -83,15 +82,14 @@ export default function StudyGroupCard(props) {
       console.log('user left group');
       console.log(data);
       fetchGroups()
+      setJoinWidget(_getJoinWidget(0))
 
-      props.setGroups({...props.groups})
     }else if(error) console.error(error);
 
   }
   React.useEffect(() => {
     setJoinWidget(getJoinWidget())
   }, [])
-
 
   return (
     <div
@@ -120,9 +118,12 @@ export default function StudyGroupCard(props) {
       </div>
       <div style={{ width: '100%', display: 'flex', alignContent: 'center', justifyContent: 'center'}}>
         {
-          (
-            getJoinWidget()
-          )
+          // (isJoinable) ?
+          // <JoinButton onClick={handleJoinEvent}>Join</JoinButton>
+          // : <LeaveButton onClick={handleLeaveEvent}>Leave</LeaveButton>
+
+          // isJoinable ? getJoinWidget() : getJoinWidget()
+          joinWidget
         }
       </div>
     </div>
