@@ -22,6 +22,9 @@ export default function Home(props) {
 
   var my_calendar = new Calendar();
 
+  const [searchedUserGroups, setSearchedUserGroups] = useState([])
+  const [searching, setSearching] = useState(false)
+
   const RefreshButton = styled('button')`
      /* background: white;
      border: 1px solid black;
@@ -45,6 +48,11 @@ export default function Home(props) {
   async function handleRefreshUserGroups(){
     fetchGroupsForUser()
 
+  }
+  function filterUserGroups(e){
+    setSearching(!!e.target.value)
+    
+    setSearchedUserGroups(userGroups.filter(el => (el.name.startsWith(e.target.value))))
   }
 
   const _props = {
@@ -73,11 +81,11 @@ export default function Home(props) {
               <div className="searchPrompt">
                 Search for the study sessions you want to join:
               </div>
-              <input type="text" placeholder="Search.." />
+              <input type="text" placeholder="Search.." onChange={filterUserGroups} />
             </div>
             {/* <StudyGroupCardList /> */}
             {
-            userGroups.map((group) => {
+            (searching ? searchedUserGroups : userGroups).map((group) => {
               // console.log(group);
               return <StudyGroupCard
                 id={group.id}

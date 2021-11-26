@@ -21,6 +21,8 @@ export default function ExploreEvents(props) {
   const navigate = useNavigate();
 
   var my_calendar = new Calendar();
+  const [searchedGroups, setSearchedGroups] = useState([])
+  const [searching, setSearching] = useState(false)
 
   const RefreshButton = styled('button')`
      /* background: white;
@@ -58,6 +60,10 @@ export default function ExploreEvents(props) {
     // fetchGroupsForUser()
     fetchGroups()
   }, [])
+  function filterGroups(e){
+    setSearching(!!e.target.value)
+    setSearchedGroups(groups.filter(el => (el.name.startsWith(e.target.value))))
+  }
 
   return !currentUser ? (
     <Navigate to="/signup" replace={true} />
@@ -72,11 +78,11 @@ export default function ExploreEvents(props) {
               <div className="searchPrompt">
                 Search for the study sessions you want to join:
               </div>
-              <input type="text" placeholder="Search.." />
+              <input type="text" placeholder="Search.." onChange={filterGroups} />
             </div>
             {/* <StudyGroupCardList /> */}
             {
-              groups && Array.from(groups).map((group) => {
+              (searching ? searchedGroups : groups).map((group) => {
                 // console.log(group);
                 return <StudyGroupCard
                   id={group.id}
