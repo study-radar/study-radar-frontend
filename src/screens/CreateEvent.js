@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import "./SignUp.css";
+import "./CreateEvent.css";
 import apiClient from "../services/apiClient";
 
 export default function CreateEvent(props) {
@@ -22,6 +22,7 @@ export default function CreateEvent(props) {
   const [form, setForm] = useState({
     name: "",
     description: "",
+    location: "",
     capacity: 3,
     dateTime: "",
   });
@@ -62,15 +63,12 @@ export default function CreateEvent(props) {
       fetchGroupsForUser()
       navigate("/");
     } else if (error) console.error(error);
-
-    
-    
   }
 
   return !currentUser ? (
     <Navigate to="/signup" replace={true} />
   ) : (
-    <>
+    <div className="create-event">
       <h2 className="title">Create Event</h2>
       <h2 className="subtitle">Choose Email and Password</h2>
       {/* {error && <h3>{error}</h3>} */}
@@ -88,10 +86,18 @@ export default function CreateEvent(props) {
           <input
             type="text"
             value={form.description}
-            onChange={(e) => setForm({ ...form, description: e.target.value })}
-            placeholder="Enter your Description"
+            onChange={(e) => setForm({ ...form, location: e.target.value })}
+            placeholder="Enter your Location"
           />
           <br />
+            <label>Location</label>
+            <input
+              type="text"
+              value={form.location}
+              onChange={(e) => setForm({ ...form, location: e.target.value })}
+              placeholder="Enter your location"
+            />
+            <br />
           <label>Capacity</label>
           <input
             type="number"
@@ -122,6 +128,6 @@ export default function CreateEvent(props) {
           <br /><br /><br /><br />
         </Link> */}
       </div>
-    </>
+    </div>
   );
 }

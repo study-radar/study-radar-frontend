@@ -8,7 +8,7 @@ flex-wrap: nowrap --> default is wrap, all in one line
 background-color --> good to see area enclosed
  */
 
-.title {
+.signup .title {
     font-size: 50px;
     text-align: center;
     color: #7AAEDE;
@@ -17,7 +17,7 @@ background-color --> good to see area enclosed
     font-family: 'Source Code Pro', monospace;
 }
 
-.submit:hover {
+.signup .submit:hover {
     color: white;
     background-color: #7AAEDE;
 }
@@ -30,7 +30,7 @@ background-color --> good to see area enclosed
     flex-direction: column;
 } */
 
-.errorProp {
+.signup .errorProp {
     text-align: center;
     font-size: 30px;
     font-family: 'Roboto', sans-serif;
@@ -59,7 +59,7 @@ background-color --> good to see area enclosed
 } */
 
 
-label {
+.signup label {
     text-align: left;
     font-family: 'Roboto', sans-serif;
     margin-top: 30px;
@@ -71,7 +71,7 @@ label {
     line-height : 0px;
 }
 
-input {
+.signup input {
     text-align: left;
     padding-left: 10px;
     width: 60%;
@@ -85,14 +85,14 @@ input {
     margin:auto;
 }
 
-.login-link {
+.signup .login-link {
     font-family: 'Roboto', sans-serif;
     text-align: center;
     font-size: 18px;
     color: #7AAEDE;
 }
 
-.submit {
+.signup .submit {
     margin-top: 50px;
 
     /* center the button */
@@ -110,7 +110,7 @@ input {
     transition: color 0.5s ease;
 }
 
-.bottom {
+.signup .bottom {
     margin-top: 100px;
     font-family: 'Roboto', sans-serif;
     text-align: center;

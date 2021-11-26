@@ -82,8 +82,8 @@ export default function Home(props) {
       <body className="w-screen h-screen flex bg-indigo-400">
         <div className="wrap">
           <div className="w-full h-full bg-yellow-300 box">
-            <div class="topnav">
-              <RefreshButton onClick={handleRefreshUserGroups}>Refresh</RefreshButton>
+            <div class="topnav" style={{display: 'relative'}}>
+              <RefreshButton style={{display: 'absolute'}} onClick={handleRefreshUserGroups}>Refresh</RefreshButton>
               <div className="searchPrompt">
                 Search for the study sessions you want to join:
               </div>
@@ -92,15 +92,16 @@ export default function Home(props) {
             {/* <StudyGroupCardList /> */}
             {
             userGroups.map((group) => {
-              console.log(group);
+              // console.log(group);
               return <StudyGroupCard
                 name={group.name}
                 subject={group.subject}
                 location={group.location}
                 pictureURL={group.pictureURL}
                 description={group.description}
-                numAttendence={group.numAttendence}
-                groupCreator={group.groupCreator}
+                numAttendence={group.users.length}
+                capacity={group.capacity}
+                created_by={group.created_by}
                 key={group.groupID}
               />
               })
