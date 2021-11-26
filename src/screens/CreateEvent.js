@@ -25,9 +25,22 @@ export default function CreateEvent(props) {
     location: "",
     capacity: 3,
     dateTime: "",
+    // imgurl: "",
   });
   const [error, setError] = useState("");
 
+  function handleFileUpload(e) {
+    e.preventDefault();
+    if (e.target.files?.[0]) {
+      let FR = new FileReader();
+      FR.addEventListener("load", (e) => {
+        // console.log(e.target.result);
+        setForm({ ...form, imgurl: e.target.result})
+        console.log("form", form);
+      });
+      FR.readAsDataURL(e.target.files[0]);
+    }
+  }
   async function handleSubmit(e) {
     e.preventDefault();
     
@@ -86,7 +99,7 @@ export default function CreateEvent(props) {
           <input
             type="text"
             value={form.description}
-            onChange={(e) => setForm({ ...form, location: e.target.value })}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
             placeholder="Enter your Location"
           />
           <br />

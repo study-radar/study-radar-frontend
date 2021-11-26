@@ -65,7 +65,7 @@ export default function Home(props) {
   return !currentUser ? (
     <Navigate to="/signup" replace={true} />
   ) : (
-    <div className="flex flex-col">
+    <div className="signup flex flex-col">
       <header>
         <div className="navbar">
           <button onClick={handleLogout} className="logout">
@@ -94,15 +94,17 @@ export default function Home(props) {
             userGroups.map((group) => {
               // console.log(group);
               return <StudyGroupCard
+                id={group.id}
                 name={group.name}
                 subject={group.subject}
                 location={group.location}
-                pictureURL={group.pictureURL}
+                imgurl={group.imgurl}
                 description={group.description}
                 numAttendence={group.users.length}
                 capacity={group.capacity}
                 created_by={group.created_by}
                 key={group.groupID}
+                {..._props}
               />
               })
             }

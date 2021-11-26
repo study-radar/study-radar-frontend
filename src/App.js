@@ -20,7 +20,7 @@ import EventImage from "./components/EventImage";
 // import "./screens/Calendar.css";
 
 function App() {
-  const [userGroups, setUserGroups] = React.useState([...groupsConstant])
+  const [userGroups, setUserGroups] = React.useState([..._groupsConstant])
 
   async function fetchGroupsForUser() {
     // resemble refresh
@@ -30,7 +30,7 @@ function App() {
       console.log('groups for user');
       console.log(data);
 
-      setUserGroups([...groupsConstant, ...data])
+      setUserGroups([..._groupsConstant, ...data])
     } else if (error) {
       console.error(error);
     }
@@ -127,37 +127,37 @@ function App() {
 export default App;
 
 const _groupsConstant = []
-const groupsConstant = [
-  {
-    name: "Final Review Session",
-    groupID: 0,
-    subject: "CS 35L",
-    location: "Royce Hall",
-    pictureURL:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/2019_UCLA_Royce_Hall_2.jpg/1600px-2019_UCLA_Royce_Hall_2.jpg",
-    description: `Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque lquia consequuntur magni dolores eos qui ratione
-            voluptatem sequi nesciunt.`,
-    capacity: 3,
-    created_by: "Bryson",
-    users: [{},{}],
-  },
-  {
-    name: "Random Study Session",
-    groupID: 1,
-    subject: "CS M51A",
-    location: "Young Research Library",
-    pictureURL:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/2019_UCLA_Charles_E._Young_Research_Library.jpg/600px-2019_UCLA_Charles_E._Young_Research_Library.jpg",
-    description: `Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-            illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-            explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-            odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-            voluptatem sequi nesciunt.`,
-    numAttendence: 5,
-    capacity: 3,
-    users: [{},{}],
-    groupCreator: "Bryson",
-  },
-];
+// const groupsConstant = [
+//   {
+//     name: "Final Review Session",
+//     id: 0,
+//     subject: "CS 35L",
+//     location: "Royce Hall",
+//     imgurl:
+//       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/2019_UCLA_Royce_Hall_2.jpg/1600px-2019_UCLA_Royce_Hall_2.jpg",
+//     description: `Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+//             accusantium doloremque lquia consequuntur magni dolores eos qui ratione
+//             voluptatem sequi nesciunt.`,
+//     capacity: 3,
+//     created_by: "Bryson",
+//     users: [{},{}],
+//   },
+//   {
+//     name: "Random Study Session",
+//     id: 1,
+//     subject: "CS M51A",
+//     location: "Young Research Library",
+//     imgurl:
+//       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/2019_UCLA_Charles_E._Young_Research_Library.jpg/600px-2019_UCLA_Charles_E._Young_Research_Library.jpg",
+//     description: `Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+//             accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
+//             illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+//             explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
+//             odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+//             voluptatem sequi nesciunt.`,
+//     numAttendence: 5,
+//     capacity: 3,
+//     users: [{},{}],
+//     groupCreator: "Bryson",
+//   },
+// ];
