@@ -15,12 +15,14 @@ import UpdateProfile from "./screens/UpdateProfile";
 import apiClient from "./services/apiClient";
 import CreateEvent from "./screens/CreateEvent";
 import EventImage from "./components/EventImage";
+import ExploreEvents from "./screens/ExploreEvents";
 
 // import "./screens/SignUp.css";
 // import "./screens/Calendar.css";
 
 function App() {
   const [userGroups, setUserGroups] = React.useState([..._groupsConstant])
+  const [groups, setGroups] = React.useState([..._groupsConstant])
 
   async function fetchGroupsForUser() {
     // resemble refresh
@@ -40,6 +42,7 @@ function App() {
     if (data) {
       console.log('groups');
       console.log(data);
+      setGroups([..._groupsConstant, ...data])
     } else if (error) {
       console.error(error);
     }
@@ -47,6 +50,8 @@ function App() {
   const props = {
     userGroups,
     setUserGroups,
+    groups,
+    setGroups,
     fetchGroups,
     fetchGroupsForUser,
   }
@@ -112,8 +117,8 @@ function App() {
           <Route path="create-event"
             element={<CreateEvent {...props} />}
             />
-          <Route path="event-image/:id"
-            element={<EventImage />}
+          <Route path="explore-events"
+            element={<ExploreEvents {...props} />}
             />
         </Routes>
       </AuthProvider>

@@ -1,0 +1,21 @@
+.navbar{
+  width: 100vw;
+  height: 60px;
+  background-color:rgb(185, 255, 255);
+
+  
+  display: flex;
+  
+  justify-content: space-around;
+  padding: 4px;
+}
+.options{
+  display: flex;
+  justify-content: space-around;
+
+}
+p{
+  margin: auto 10px auto 10px;
+  background-color: aliceblue;
+  padding: 4px;
+}

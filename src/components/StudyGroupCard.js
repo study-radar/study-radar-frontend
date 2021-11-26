@@ -4,7 +4,7 @@ import apiClient from "../services/apiClient";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function StudyGroupCard(props) {
-  const {userGroups, fetchGroups, fetchGroupsForUser} = props
+  const {groups, setGroups, userGroups, fetchGroups, fetchGroupsForUser} = props
 
   const { signUp, currentUser, setCurrentUser } = useAuth();
 
@@ -55,6 +55,10 @@ export default function StudyGroupCard(props) {
 
     return  <p>Unavailable</p>
   }
+  function userInGroup(groupId, a,b){
+    const groupIds = userGroups.map(({ id }) => id)
+    return groupIds.includes(groupId)
+  }
 
 
   async function handleJoinEvent(){
@@ -64,9 +68,10 @@ export default function StudyGroupCard(props) {
     if(data){
       console.log('user joined group');
       console.log(data);
-      fetchGroupsForUser()
+      fetchGroups()
+      setGroups(g => ({...g}))
     }else if(error) console.error(error);
-    
+   
 
   }
   async function handleLeaveEvent(){
@@ -77,7 +82,9 @@ export default function StudyGroupCard(props) {
     if(data){
       console.log('user left group');
       console.log(data);
-      fetchGroupsForUser()
+      fetchGroups()
+
+      props.setGroups({...props.groups})
     }else if(error) console.error(error);
 
   }
@@ -113,7 +120,9 @@ export default function StudyGroupCard(props) {
       </div>
       <div style={{ width: '100%', display: 'flex', alignContent: 'center', justifyContent: 'center'}}>
         {
-          joinWidget
+          (
+            getJoinWidget()
+          )
         }
       </div>
     </div>

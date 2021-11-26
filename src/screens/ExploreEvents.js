@@ -12,8 +12,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import styled from 'styled-components'
 import Navbar from "./Navbar";
 
-export default function Home(props) {
-  const {userGroups, setUserGroups, groups, setGroups, fetchGroups, fetchGroupsForUser} = props
+export default function ExploreEvents(props) {
+  const { userGroups, setUserGroups, groups, setGroups, fetchGroups, fetchGroupsForUser } = props
 
 
   const { currentUser, logOutPostgres } = useAuth();
@@ -39,37 +39,36 @@ export default function Home(props) {
 
 
   async function handleLogout() {
-      await logOutPostgres();
-      navigate("/signup", { replace: true });
+    await logOutPostgres();
+    navigate("/signup", { replace: true });
   }
-  async function handleRefreshUserGroups(){
-    fetchGroupsForUser()
-
+  async function handleRefreshGroups() {
+    fetchGroups()
   }
 
   const _props = {
-    userGroups,
-    setUserGroups,
     groups,
     setGroups,
-
+    userGroups,
+    setUserGroups,
     fetchGroups,
     fetchGroupsForUser
   }
-  React.useEffect(()=>{
-    fetchGroupsForUser()
+  React.useEffect(() => {
+    // fetchGroupsForUser()
+    fetchGroups()
   }, [])
 
   return !currentUser ? (
     <Navigate to="/signup" replace={true} />
   ) : (
     <div className="signup flex flex-col">
-      <Navbar/>
+      <Navbar />
       <body className="w-screen h-screen flex bg-indigo-400">
         <div className="wrap">
           <div className="w-full h-full bg-yellow-300 box">
-            <div class="topnav" style={{display: 'relative'}}>
-              <RefreshButton style={{display: 'absolute'}} onClick={handleRefreshUserGroups}>Refresh</RefreshButton>
+            <div class="topnav" style={{ display: 'relative' }}>
+              <RefreshButton style={{ display: 'absolute' }} onClick={handleRefreshGroups}>Refresh</RefreshButton>
               <div className="searchPrompt">
                 Search for the study sessions you want to join:
               </div>
@@ -77,21 +76,21 @@ export default function Home(props) {
             </div>
             {/* <StudyGroupCardList /> */}
             {
-            userGroups.map((group) => {
-              // console.log(group);
-              return <StudyGroupCard
-                id={group.id}
-                name={group.name}
-                subject={group.subject}
-                location={group.location}
-                imgurl={group.imgurl}
-                description={group.description}
-                numAttendence={group.users.length}
-                capacity={group.capacity}
-                created_by={group.created_by}
-                key={group.groupID}
-                {..._props}
-              />
+              groups && Array.from(groups).map((group) => {
+                // console.log(group);
+                return <StudyGroupCard
+                  id={group.id}
+                  name={group.name}
+                  subject={group.subject}
+                  location={group.location}
+                  imgurl={group.imgurl}
+                  description={group.description}
+                  numAttendence={group.users.length}
+                  capacity={group.capacity}
+                  created_by={group.created_by}
+                  key={group.groupID}
+                  {..._props}
+                />
               })
             }
           </div>
@@ -102,7 +101,7 @@ export default function Home(props) {
       </body>
 
       <Routes>
-        
+
       </Routes>
     </div>
   );
