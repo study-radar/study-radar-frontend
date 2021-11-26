@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import apiClient from "../services/apiClient";
 
 export default function StudyGroupCard(props) {
+  console.log(props);
   /* Contained inside of props
     Study Group Name
     Subject
@@ -43,7 +44,7 @@ export default function StudyGroupCard(props) {
         id="card-header"
         className="w-full h-auto bg-gray-50 font-sans px-8 py-4"
       >
-        <h2 className="text-xl">{props.subject}</h2>
+        <h2 className="text-xl">{props?.name}</h2>
         <h1 className="text-4xl">{props.groupName}</h1>
         <h2 className="text-xl">📍 {props.location}</h2>
         <h4 className="text-base">Created by: {props.groupCreator}</h4>

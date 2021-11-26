@@ -23,11 +23,14 @@ function App() {
   const [userGroups, setUserGroups] = React.useState([...groupsConstant])
 
   async function fetchGroupsForUser() {
+    // resemble refresh
+    setUserGroups([])
     const { data, error } = await apiClient.getGroupsForUser()
     if (data) {
       console.log('groups for user');
       console.log(data);
-      // setUserGroups([...userGroups, ...data])
+
+      setUserGroups([...groupsConstant, data])
     } else if (error) {
       console.error(error);
     }
@@ -43,6 +46,7 @@ function App() {
   }
   const props = {
     userGroups,
+    setUserGroups,
     fetchGroups,
     fetchGroupsForUser,
   }
@@ -69,7 +73,7 @@ function App() {
           <Route
             path="/"
             element={
-                <Home />
+                <Home {...props} />
             }
           />
           <Route
@@ -125,7 +129,7 @@ export default App;
 const _groupsConstant = []
 const groupsConstant = [
   {
-    groupName: "Final Review Session",
+    name: "Final Review Session",
     groupID: 0,
     subject: "CS 35L",
     location: "Royce Hall",
@@ -141,7 +145,7 @@ const groupsConstant = [
     groupCreator: "Bryson",
   },
   {
-    groupName: "Random Study Session",
+    name: "Random Study Session",
     groupID: 1,
     subject: "CS M51A",
     location: "Young Research Library",

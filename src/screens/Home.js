@@ -9,8 +9,11 @@ import "./feed.css";
 import StudyGroupCard from "../components/StudyGroupCard";
 import apiClient from "../services/apiClient";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import styled from 'styled-components'
 
-export default function Home() {
+export default function Home(props) {
+  const {userGroups, fetchGroups, fetchGroupsForUser} = props
+
   const [error, setError] = useState("");
 
   const { currentUser, logOutPostgres } = useAuth();
@@ -19,7 +22,21 @@ export default function Home() {
 
   var my_calendar = new Calendar();
 
-  const [userGroups, setUserGroups] = useState([...groupsConstant])
+  const RefreshButton = styled('button')`
+     /* background: white;
+     border: 1px solid black;
+     margin: 5px; */
+       background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 5px 2px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  display: absolute;
+  `
+
 
   async function handleLogout() {
     setError("");
@@ -31,26 +48,12 @@ export default function Home() {
       setError("Failed to logout");
     }
   }
-  async function fetchGroupsForUser() {
-    const { data, error } = await apiClient.getGroupsForUser()
-    if (data) {
-      console.log('groups for user');
-      console.log(data);
-      setUserGroups([...userGroups, ...data])
-    } else if (error) {
-      console.error(error);
-    }
+  async function handleRefreshUserGroups(){
+    fetchGroupsForUser()
+
   }
-  async function fetchGroups() {
-    const { data, error } = await apiClient.getAllGroups()
-    if (data) {
-      console.log('groups');
-      console.log(data);
-    } else if (error) {
-      console.error(error);
-    }
-  }
-  const props = {
+
+  const _props = {
     userGroups,
     fetchGroups,
     fetchGroupsForUser
@@ -80,6 +83,7 @@ export default function Home() {
         <div className="wrap">
           <div className="w-full h-full bg-yellow-300 box">
             <div class="topnav">
+              <RefreshButton onClick={handleRefreshUserGroups}>Refresh</RefreshButton>
               <div className="searchPrompt">
                 Search for the study sessions you want to join:
               </div>
@@ -87,9 +91,10 @@ export default function Home() {
             </div>
             {/* <StudyGroupCardList /> */}
             {
-            userGroups.map((group) => (
-              <StudyGroupCard
-                groupName={group.groupName}
+            userGroups.map((group) => {
+              console.log(group);
+              return <StudyGroupCard
+                name={group.name}
                 subject={group.subject}
                 location={group.location}
                 pictureURL={group.pictureURL}
@@ -98,7 +103,7 @@ export default function Home() {
                 groupCreator={group.groupCreator}
                 key={group.groupID}
               />
-              ))
+              })
             }
           </div>
           <div className="container box">
@@ -115,38 +120,3 @@ export default function Home() {
 }
 
 
-const _groupsConstant = []
-const groupsConstant = [
-  {
-    groupName: "Final Review Session",
-    groupID: 0,
-    subject: "CS 35L",
-    location: "Royce Hall",
-    pictureURL:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/2019_UCLA_Royce_Hall_2.jpg/1600px-2019_UCLA_Royce_Hall_2.jpg",
-    description: `Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-            illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-            explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-            odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-            voluptatem sequi nesciunt.`,
-    numAttendence: 5,
-    groupCreator: "Bryson",
-  },
-  {
-    groupName: "Random Study Session",
-    groupID: 1,
-    subject: "CS M51A",
-    location: "Young Research Library",
-    pictureURL:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/2019_UCLA_Charles_E._Young_Research_Library.jpg/600px-2019_UCLA_Charles_E._Young_Research_Library.jpg",
-    description: `Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-            illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-            explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-            odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-            voluptatem sequi nesciunt.`,
-    numAttendence: 5,
-    groupCreator: "Bryson",
-  },
-];

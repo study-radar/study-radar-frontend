@@ -4,7 +4,9 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import "./SignUp.css";
 import apiClient from "../services/apiClient";
 
-export default function CreateEvent() {
+export default function CreateEvent(props) {
+  const {userGroups, setUserGroups, fetchGroups, fetchGroupsForUser } = props
+
   const { signUp, currentUser, setCurrentUser } = useAuth();
 
   // the string in useState refers to first var (e.g. email)
@@ -28,27 +30,41 @@ export default function CreateEvent() {
   async function handleSubmit(e) {
     e.preventDefault();
     
-    for(const field of Object.keys(form)){
+    const requiredFields = ['name', 'description', 'capacity', 'dateTime']
+    for(const field of requiredFields){
       if(!form[field]){
         setError(`Error: ${field} is empty...`)
         return
       }
     }
 
-    const { data, error } = await apiClient.createGroup({
+    var { data, error } = await apiClient.createGroup({
       name: form.name,
       description: form.description,
       date_time: form.dateTime,
       capacity: form.capacity,
+      created_by: currentUser.email      
     });
     if (data) {
       // update feed
-      
-      navigate("/");
+      fetchGroupsForUser()
+      fetchGroups()
+      setUserGroups(g => [...g, data])
     } else if (error) {
       console.error(error);
       return;
-    }
+    };
+    
+    var {data, error} = await apiClient.addUserToGroup({
+      groupId: data.group.id
+    })
+    if(data){
+      fetchGroupsForUser()
+      navigate("/");
+    } else if (error) console.error(error);
+
+    
+    
   }
 
   return !currentUser ? (
