@@ -4,6 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import CalendarContainer from "../components/calendar/CalendarContainer";
 import Calendar from "./Calendar";
 //import StudyGroupCardList from "../components/StudyGroupCardList";
+//hello world
 import "./home.css";
 import "./feed.css";
 import StudyGroupCard from "../components/StudyGroupCard";
