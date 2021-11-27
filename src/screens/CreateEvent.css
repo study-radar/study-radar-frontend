@@ -8,21 +8,21 @@ flex-wrap: nowrap --> default is wrap, all in one line
 background-color --> good to see area enclosed
  */
 
-.signup .title {
+.create-event .title {
     font-size: 50px;
     text-align: center;
+    text-transform: uppercase;
     color: #7AAEDE;
     font-weight: 700;
     margin-top: 100px;
     font-family: 'Source Code Pro', monospace;
 }
 
-.signup .submit:hover {
+.create-event .submit:hover {
     color: white;
     background-color: #7AAEDE;
 }
-
-.signup .errorProp {
+.create-event .errorProp {
     text-align: center;
     font-size: 30px;
     font-family: 'Roboto', sans-serif;
@@ -37,8 +37,7 @@ background-color --> good to see area enclosed
     font-size: 30px;
     font-family: 'Roboto', sans-serif;
 }
-
-.signup label {
+.create-event label {
     text-align: left;
     font-family: 'Roboto', sans-serif;
     margin-top: 30px;
@@ -50,27 +49,27 @@ background-color --> good to see area enclosed
     line-height : 0px;
 }
 
-.signup input {
+.create-event input {
     text-align: left;
     padding-left: 10px;
     width: 60%;
     height: 40px;
     font-size: 15px;
     font-family: 'Roboto', sans-serif;
+    /* padding-bottom: 100px; */
     background-color: #efefef;
     border-radius: 10px;
     display: block;
     margin:auto;
 }
-
-.login-link {
+.create-event .login-link {
     font-family: 'Roboto', sans-serif;
     text-align: center;
     font-size: 18px;
     color: #7AAEDE;
 }
 
-.submit {
+.create-event .submit {
     margin-top: 50px;
 
     /* center the button */
@@ -88,7 +87,7 @@ background-color --> good to see area enclosed
     transition: color 0.5s ease;
 }
 
-.bottom {
+.create-event .bottom {
     margin-top: 100px;
     font-family: 'Roboto', sans-serif;
     text-align: center;

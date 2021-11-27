@@ -7,31 +7,84 @@ import Calendar from "./Calendar";
 import "./home.css";
 import "./feed.css";
 import StudyGroupCard from "../components/StudyGroupCard";
+import apiClient from "../services/apiClient";
 import Navbar from "./Navbar";
 import { useUserGroup } from "../contexts/UserGroupContext";
+import JoinLeaveButton from "../components/JoinLeaveButton";
 
-export default function Home() {
-  const { userGroups, fetchGroupsForUser } = useUserGroup();
+export default function ExploreEvents() {
+  const { userGroups, fetchGroupsForUser, allGroups, fetchAllGroups } =
+    useUserGroup();
 
   const { currentUser } = useAuth();
 
   var my_calendar = new Calendar();
-
-  const [searchedUserGroups, setSearchedUserGroups] = useState([]);
+  const [searchedGroups, setSearchedGroups] = useState([]);
   const [searching, setSearching] = useState(false);
-
-  function filterUserGroups(e) {
-    setSearching(!!e.target.value);
-
-    setSearchedUserGroups(
-      userGroups.filter((el) => el.name.startsWith(e.target.value))
-    );
-  }
 
   React.useEffect(() => {
     fetchGroupsForUser();
+    fetchAllGroups();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  function filterGroups(e) {
+    setSearching(!!e.target.value);
+    setSearchedGroups(
+      allGroups.filter((el) => el.name.startsWith(e.target.value))
+    );
+  }
+
+  async function handleJoinGroup(groupId) {
+    const { data, error } = await apiClient.addUserToGroup({
+      groupId: groupId,
+    });
+    if (data) {
+      console.log("user joined group");
+      console.log(data);
+      // Update allGroups and userGroups
+      fetchAllGroups();
+      fetchGroupsForUser();
+    } else if (error) console.error(error);
+  }
+
+  async function handleLeaveGroup(groupId) {
+    const { data, error } = await apiClient.removeUserFromGroup({
+      email: currentUser.email,
+      groupId: groupId,
+    });
+    if (data) {
+      console.log("user left group");
+      console.log(data);
+      fetchAllGroups();
+      fetchGroupsForUser();
+    } else if (error) console.error(error);
+  }
+
+  function createEventButton(group) {
+    const userGroupIds = userGroups.map(({ id }) => id);
+    if (userGroupIds.includes(group.id)) {
+      return (
+        <JoinLeaveButton
+          onClick={() => handleLeaveGroup(group.id)}
+          type="leave"
+        />
+      );
+    }
+    if (
+      group.users.length < group.capacity &&
+      !userGroupIds.includes(group.id)
+    ) {
+      return (
+        <JoinLeaveButton
+          onClick={() => handleJoinGroup(group.id)}
+          type="join"
+        />
+      );
+    }
+
+    return <JoinLeaveButton onClick={() => {}} type="unavailable" />;
+  }
 
   return !currentUser ? (
     <Navigate to="/signup" replace={true} />
@@ -48,11 +101,11 @@ export default function Home() {
               <input
                 type="text"
                 placeholder="Search.."
-                onChange={filterUserGroups}
+                onChange={filterGroups}
               />
             </div>
             {/* <StudyGroupCardList /> */}
-            {(searching ? searchedUserGroups : userGroups).map((group) => {
+            {(searching ? searchedGroups : allGroups).map((group) => {
               return (
                 <StudyGroupCard
                   key={group.id}
@@ -65,6 +118,7 @@ export default function Home() {
                   numAttendence={group.users.length}
                   capacity={group.capacity}
                   created_by={group.created_by}
+                  eventButton={createEventButton(group)}
                 />
               );
             })}

@@ -27,6 +27,8 @@ header {
   float: left;
   margin-top: 7px;
   margin-left: 7px;
+  position: absolute;
+  left: 50px;
 }
 
 .logout:hover {
@@ -50,7 +52,8 @@ header {
 
 .box{
     width: 50vw;
-    background-color: #7aaede;
+    /* background-color: #7aaede; */
+    background: white;
     overflow: scroll;
 }
 
@@ -67,5 +70,3 @@ header {
 .home-link:hover {
   color: #7aaede;
 }
-
-html, body {margin: 0; height: 100%; overflow: hidden}

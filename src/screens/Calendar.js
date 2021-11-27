@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, Inject } from '@syncfusion/ej2-react-schedule';
 import "./calendar.css";
 
+import apiClient from '../services/apiClient';
+
 
 class Calendar extends React.Component {
     constructor() {
@@ -18,7 +20,12 @@ class Calendar extends React.Component {
                 Status: 'Completed',
                 Priority: 'High'
             }];
-            document.getElementById('schedule');
+            // document.getElementById('schedule');
+    }
+    async submitEvent(){
+       const returnedGroup = await apiClient.createGroup({
+
+       })
     }
 
     render() {
@@ -30,16 +37,11 @@ class Calendar extends React.Component {
                 </div>
             </header>
             <div className="container">
+                <div className="feed">
+                    FEED
+                </div>
                 <div class="calendar">
-                    <ScheduleComponent selectedDate={new Date(new Date().setHours(new Date().getHours() - 3))} eventSettings={{ dataSource: this.data,
-                        fields: {
-                            id: 'Id', 
-                            subject: { name: 'Subject' },
-                            isAllDay: { name: 'IsAllDay' },
-                            startTime: { name: 'StartTime' },
-                            endTime: { name: 'EndTime' }
-                        }
-                    }}>
+                    <ScheduleComponent selectedDate={new Date(new Date().setHours(new Date().getHours() - 3))} eventSettings={{ dataSource: this.data }} enablePersistence={true}>
                     <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
                     </ScheduleComponent>
                 </div>

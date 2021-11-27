@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
+import Navbar from "./Navbar";
 
 export default function UpdateProfile() {
   const { updateUserPassword, updateUserEmail, currentUser } = useAuth();
 
   // Hardcoded values for testing
-  const [email, setEmail] = useState(currentUser.email);
+  const [email, setEmail] = useState(currentUser?.email);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [major, setMajor] = useState("");
@@ -67,7 +68,10 @@ export default function UpdateProfile() {
 
   return (
     <>
-      <div>
+      {/* <Navbar style={{position: 'relative ', top: '0'}}/> */}
+
+      
+      <div className="signup">
         <h2 className="title">UPDATE PROFILE</h2>
         {error && <h3>{error}</h3>}
         {currentUser && <h2 className="subtitle">Current email: {currentUser.email}</h2>}
@@ -111,8 +115,8 @@ export default function UpdateProfile() {
               onChange={handleMajorChange}
           />
         </form>
-      </div>
       <button className="submit" onClick={handleGoBack} type="submit" disabled={loading}>CANCEL</button>
+      </div>
     </>
   );
 }
