@@ -11,9 +11,10 @@ background-color --> good to see area enclosed
 .create-event .title {
     font-size: 50px;
     text-align: center;
+    text-transform: uppercase;
     color: #7AAEDE;
     font-weight: 700;
-    /* margin-top: 100px; */
+    margin-top: 100px;
     font-family: 'Source Code Pro', monospace;
 }
 
