@@ -92,7 +92,7 @@ export default function CreateEvent(props) {
             type="text"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
-            placeholder="Enter your name of event"
+            placeholder="Enter name of event"
           />
           <br />
           <label>Description</label>
@@ -100,7 +100,7 @@ export default function CreateEvent(props) {
             type="text"
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
-            placeholder="Enter your Location"
+            placeholder="Enter event description"
           />
           <br />
             <label>Location</label>
@@ -108,7 +108,7 @@ export default function CreateEvent(props) {
               type="text"
               value={form.location}
               onChange={(e) => setForm({ ...form, location: e.target.value })}
-              placeholder="Enter your location"
+              placeholder="Enter event location"
             />
             <br />
           <label>Capacity</label>
