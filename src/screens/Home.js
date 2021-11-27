@@ -8,6 +8,7 @@ import Calendar from "./Calendar";
 import "./home.css";
 import "./feed.css";
 import StudyGroupCard from "../components/StudyGroupCard";
+import Agenda from "../components/Agenda";
 import Navbar from "./Navbar";
 import { useUserGroup } from "../contexts/UserGroupContext";
 
@@ -71,7 +72,7 @@ export default function Home() {
             })}
           </div>
           <div className="container box">
-            <CalendarContainer calendar={my_calendar} />
+            <Agenda/>
           </div>
         </div>
       </body>
