@@ -16,7 +16,6 @@ export default function SignUp() {
 
   const navigate = useNavigate();
 
-
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -30,14 +29,14 @@ export default function SignUp() {
       // await signUp(email, password);
       const data = await signUpPostgres(email, password);
 
-      // if (data.data) {
-      //   console.log("good");
-      //   console.log(data.data);
-      // } else if (data.error) {
-      //   console.log("bad");
-      //   setError("Bad");
-      //   throw error;
-      // }
+      if (data.data) {
+        console.log("Successful sign up");
+        console.log(data.data);
+      } else if (data.error) {
+        console.log("Unsuccessful sign up");
+        setError("Unsuccessful sign up");
+        throw error;
+      }
 
       navigate("/", { replace: true });
     } catch (signUpError) {
@@ -71,7 +70,7 @@ export default function SignUp() {
     <div className="signup">
       <h2 className="title">REGISTER</h2>
       <h2 className="subtitle">Choose Email and Password</h2>
-      {/* {error && <h3>{error}</h3>} */}
+      {error && <h3>{error}</h3>}
       {currentUser && currentUser.email}
       <form onSubmit={handleSubmit}>
         <div className="inputAndLabel">

@@ -1,68 +1,89 @@
 import React, { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import CalendarContainer from "../components/calendar/CalendarContainer";
 import Calendar from "./Calendar";
-import StudyGroupCardList from "../components/StudyGroupCardList";
+//import StudyGroupCardList from "../components/StudyGroupCardList";
 import "./home.css";
 import "./feed.css";
 import StudyGroupCard from "../components/StudyGroupCard";
 import apiClient from "../services/apiClient";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import styled from 'styled-components'
 import Navbar from "./Navbar";
+import { useUserGroup } from "../contexts/UserGroupContext";
+import JoinLeaveButton from "../components/JoinLeaveButton";
 
-export default function ExploreEvents(props) {
-  const { userGroups, setUserGroups, groups, setGroups, fetchGroups, fetchGroupsForUser } = props
+export default function ExploreEvents() {
+  const { userGroups, fetchGroupsForUser, allGroups, fetchAllGroups } =
+    useUserGroup();
 
-
-  const { currentUser, logOutPostgres } = useAuth();
-
-  const navigate = useNavigate();
+  const { currentUser } = useAuth();
 
   var my_calendar = new Calendar();
-  const [searchedGroups, setSearchedGroups] = useState([])
-  const [searching, setSearching] = useState(false)
+  const [searchedGroups, setSearchedGroups] = useState([]);
+  const [searching, setSearching] = useState(false);
 
-  const RefreshButton = styled('button')`
-     /* background: white;
-     border: 1px solid black;
-     margin: 5px; */
-       background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 5px 2px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  display: absolute;
-  `
-
-
-  async function handleLogout() {
-    await logOutPostgres();
-    navigate("/signup", { replace: true });
-  }
-  async function handleRefreshGroups() {
-    fetchGroups()
-  }
-
-  const _props = {
-    groups,
-    setGroups,
-    userGroups,
-    setUserGroups,
-    fetchGroups,
-    fetchGroupsForUser
-  }
   React.useEffect(() => {
-    // fetchGroupsForUser()
-    fetchGroups()
-  }, [])
-  function filterGroups(e){
-    setSearching(!!e.target.value)
-    setSearchedGroups(groups.filter(el => (el.name.startsWith(e.target.value))))
+    fetchGroupsForUser();
+    fetchAllGroups();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function filterGroups(e) {
+    setSearching(!!e.target.value);
+    setSearchedGroups(
+      allGroups.filter((el) => el.name.startsWith(e.target.value))
+    );
+  }
+
+  async function handleJoinGroup(groupId) {
+    const { data, error } = await apiClient.addUserToGroup({
+      groupId: groupId,
+    });
+    if (data) {
+      console.log("user joined group");
+      console.log(data);
+      // Update allGroups and userGroups
+      fetchAllGroups();
+      fetchGroupsForUser();
+    } else if (error) console.error(error);
+  }
+
+  async function handleLeaveGroup(groupId) {
+    const { data, error } = await apiClient.removeUserFromGroup({
+      email: currentUser.email,
+      groupId: groupId,
+    });
+    if (data) {
+      console.log("user left group");
+      console.log(data);
+      fetchAllGroups();
+      fetchGroupsForUser();
+    } else if (error) console.error(error);
+  }
+
+  function createEventButton(group) {
+    const userGroupIds = userGroups.map(({ id }) => id);
+    if (userGroupIds.includes(group.id)) {
+      return (
+        <JoinLeaveButton
+          onClick={() => handleLeaveGroup(group.id)}
+          type="leave"
+        />
+      );
+    }
+    if (
+      group.users.length < group.capacity &&
+      !userGroupIds.includes(group.id)
+    ) {
+      return (
+        <JoinLeaveButton
+          onClick={() => handleJoinGroup(group.id)}
+          type="join"
+        />
+      );
+    }
+
+    return <JoinLeaveButton onClick={() => {}} type="unavailable" />;
   }
 
   return !currentUser ? (
@@ -73,18 +94,21 @@ export default function ExploreEvents(props) {
       <body className="w-screen h-screen flex bg-indigo-400">
         <div className="wrap">
           <div className="w-full h-full bg-yellow-300 box">
-            <div class="topnav" style={{ display: 'relative' }}>
-              <RefreshButton style={{ display: 'absolute' }} onClick={handleRefreshGroups}>Refresh</RefreshButton>
+            <div class="topnav" style={{ display: "relative" }}>
               <div className="searchPrompt">
                 Search for the study sessions you want to join:
               </div>
-              <input type="text" placeholder="Search.." onChange={filterGroups} />
+              <input
+                type="text"
+                placeholder="Search.."
+                onChange={filterGroups}
+              />
             </div>
             {/* <StudyGroupCardList /> */}
-            {
-              (searching ? searchedGroups : groups).map((group) => {
-                // console.log(group);
-                return <StudyGroupCard
+            {(searching ? searchedGroups : allGroups).map((group) => {
+              return (
+                <StudyGroupCard
+                  key={group.id}
                   id={group.id}
                   name={group.name}
                   subject={group.subject}
@@ -94,23 +118,16 @@ export default function ExploreEvents(props) {
                   numAttendence={group.users.length}
                   capacity={group.capacity}
                   created_by={group.created_by}
-                  key={group.groupID}
-                  {..._props}
+                  eventButton={createEventButton(group)}
                 />
-              })
-            }
+              );
+            })}
           </div>
           <div className="container box">
             <CalendarContainer calendar={my_calendar} />
           </div>
         </div>
       </body>
-
-      <Routes>
-
-      </Routes>
     </div>
   );
 }
-
-

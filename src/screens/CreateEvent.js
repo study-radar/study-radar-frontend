@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import "./CreateEvent.css";
 import apiClient from "../services/apiClient";
+import { useUserGroup } from "../contexts/UserGroupContext";
 
-export default function CreateEvent(props) {
-  const {userGroups, setUserGroups, fetchGroups, fetchGroupsForUser } = props
+export default function CreateEvent() {
+  const { fetchGroupsForUser, fetchAllGroups } = useUserGroup();
 
-  const { signUp, currentUser, setCurrentUser } = useAuth();
+  const { currentUser } = useAuth();
 
   // the string in useState refers to first var (e.g. email)
   // const [email, setEmail] = useState("");
@@ -29,53 +30,65 @@ export default function CreateEvent(props) {
   });
   const [error, setError] = useState("");
 
+  // eslint-disable-next-line no-unused-vars
   function handleFileUpload(e) {
     e.preventDefault();
     if (e.target.files?.[0]) {
       let FR = new FileReader();
       FR.addEventListener("load", (e) => {
         // console.log(e.target.result);
-        setForm({ ...form, imgurl: e.target.result})
+        setForm({ ...form, imgurl: e.target.result });
         console.log("form", form);
       });
       FR.readAsDataURL(e.target.files[0]);
     }
   }
+
   async function handleSubmit(e) {
     e.preventDefault();
-    
-    const requiredFields = ['name', 'description', 'capacity', 'dateTime']
-    for(const field of requiredFields){
-      if(!form[field]){
-        setError(`Error: ${field} is empty...`)
-        return
+
+    const requiredFields = ["name", "description", "capacity", "dateTime"];
+    for (const field of requiredFields) {
+      if (!form[field]) {
+        setError(`Error: ${field} is empty...`);
+        return;
       }
     }
 
-    var { data, error } = await apiClient.createGroup({
-      name: form.name,
-      description: form.description,
-      date_time: form.dateTime,
-      capacity: form.capacity,
-      created_by: currentUser.email      
-    });
-    if (data) {
-      // update feed
-      fetchGroupsForUser()
-      fetchGroups()
-      setUserGroups(g => [...g, data])
-    } else if (error) {
-      console.error(error);
+    try {
+      const { data, error } = await apiClient.createGroup({
+        name: form.name,
+        description: form.description,
+        date_time: form.dateTime,
+        capacity: form.capacity,
+        created_by: currentUser.email,
+      });
+
+      if (error) {
+        throw Error("Failed to create group");
+      } else if (data) {
+        console.log("Successfully created group");
+        console.log(data);
+        fetchAllGroups();
+      }
+
+      const thisGroupId = data.group.id;
+
+      try {
+        const { data, error } = await apiClient.addUserToGroup({
+          groupId: thisGroupId,
+        });
+        if (data) {
+          fetchGroupsForUser();
+          navigate("/");
+        } else if (error) console.error(error);
+      } catch (error) {
+        console.log(error);
+      }
+    } catch (error) {
+      console.log(error);
       return;
-    };
-    
-    var {data, error} = await apiClient.addUserToGroup({
-      groupId: data.group.id
-    })
-    if(data){
-      fetchGroupsForUser()
-      navigate("/");
-    } else if (error) console.error(error);
+    }
   }
 
   return !currentUser ? (
@@ -103,20 +116,19 @@ export default function CreateEvent(props) {
             placeholder="Enter your Location"
           />
           <br />
-            <label>Location</label>
-            <input
-              type="text"
-              value={form.location}
-              onChange={(e) => setForm({ ...form, location: e.target.value })}
-              placeholder="Enter your location"
-            />
-            <br />
+          <label>Location</label>
+          <input
+            type="text"
+            value={form.location}
+            onChange={(e) => setForm({ ...form, location: e.target.value })}
+            placeholder="Enter your location"
+          />
+          <br />
           <label>Capacity</label>
           <input
             type="number"
             value={form.capacity}
             onChange={(e) => setForm({ ...form, capacity: e.target.value })}
-            defaultValue={form.capacity}
           />
           <br />
           <label>Data and Time</label>
@@ -128,7 +140,9 @@ export default function CreateEvent(props) {
           />
           <br />
         </div>
-        <p style={{ color: "red", textAlign: "center", fontSize: '20px' }}>{error}</p>
+        <p style={{ color: "red", textAlign: "center", fontSize: "20px" }}>
+          {error}
+        </p>
         {/* <button className="submit" type="submit" disabled={loading} >REGISTER</button> */}
         <button className="submit" type="submit">
           Create Event

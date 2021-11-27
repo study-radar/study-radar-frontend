@@ -21,12 +21,16 @@ export default function Login() {
       setLoading(true);
       // await logIn(email, password);
       const data = await logInPostgres(email, password);
-      // if (data) {
-      //   // localStorage.setItem('studyradar', data.token)
-      //   apiClient.setToken(data.token);
-      // } else if (error) {
-      //   return setError(data.error);
-      // }
+
+      if (data.data) {
+        console.log("Successful log in");
+        console.log(data.data);
+      } else if (data.error) {
+        console.log("Unsuccessful log in");
+        setError("Unsuccessful log in");
+        throw error;
+      }
+
       navigate("/", { replace: true });
     } catch {
       setError("Failed to log in");

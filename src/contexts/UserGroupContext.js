@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import apiClient from "../services/apiClient";
 
 const UserGroupContext = React.createContext();
@@ -9,11 +9,9 @@ export function useUserGroup() {
 
 export default function UserGroupProvider({ children }) {
   const [userGroups, setUserGroups] = React.useState([]);
-  const [groups, setGroups] = React.useState([]);
+  const [allGroups, setAllGroups] = React.useState([]);
 
   async function fetchGroupsForUser() {
-    // resemble refresh
-    setUserGroups([]);
     const { data, error } = await apiClient.getGroupsForUser();
     if (data) {
       console.log("groups for user");
@@ -24,9 +22,31 @@ export default function UserGroupProvider({ children }) {
       console.error(error);
     }
   }
+
+  async function fetchAllGroups() {
+    const { data, error } = await apiClient.getAllGroups();
+    if (data) {
+      console.log("all groups");
+      console.log(data);
+      setAllGroups([...data]);
+    } else if (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchGroupsForUser();
+  }, []);
+
   const value = {
+    userGroups,
+    setUserGroups,
     fetchGroupsForUser,
+    allGroups,
+    setAllGroups,
+    fetchAllGroups,
   };
+
   return (
     <UserGroupContext.Provider value={value}>
       {children}
