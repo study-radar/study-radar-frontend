@@ -33,6 +33,7 @@ function App() {
       console.log(data);
 
       setUserGroups([..._groupsConstant, ...data])
+      return data
     } else if (error) {
       console.error(error);
     }

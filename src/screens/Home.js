@@ -104,7 +104,7 @@ export default function Home(props) {
             }
           </div>
           <div className="container box">
-            <CalendarContainer calendar={my_calendar} />
+            <CalendarContainer {..._props} calendar={<Calendar  />} />
           </div>
         </div>
       </body>

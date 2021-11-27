@@ -101,7 +101,7 @@ export default function ExploreEvents(props) {
             }
           </div>
           <div className="container box">
-            <CalendarContainer calendar={my_calendar} />
+            <CalendarContainer {..._props} calendar={my_calendar} />
           </div>
         </div>
       </body>
