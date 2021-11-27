@@ -16,6 +16,7 @@ export default function SignUp() {
 
   const navigate = useNavigate();
 
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -43,6 +44,7 @@ export default function SignUp() {
       setError("Failed to create an account");
     }
 
+    navigate("/", { replace: true });
     setLoading(false);
   }
 
@@ -66,7 +68,7 @@ export default function SignUp() {
   return currentUser ? (
     <Navigate to="/" replace={true} />
   ) : (
-    <>
+    <div className="signup">
       <h2 className="title">REGISTER</h2>
       <h2 className="subtitle">Choose Email and Password</h2>
       {/* {error && <h3>{error}</h3>} */}
@@ -121,6 +123,6 @@ export default function SignUp() {
           <br />
         </Link>
       </div>
-    </>
+    </div>
   );
 }

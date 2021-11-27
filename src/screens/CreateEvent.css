@@ -8,7 +8,7 @@ flex-wrap: nowrap --> default is wrap, all in one line
 background-color --> good to see area enclosed
  */
 
-.signup .title {
+.create-event .title {
     font-size: 50px;
     text-align: center;
     color: #7AAEDE;
@@ -17,20 +17,11 @@ background-color --> good to see area enclosed
     font-family: 'Source Code Pro', monospace;
 }
 
-.signup .submit:hover {
+.create-event .submit:hover {
     color: white;
     background-color: #7AAEDE;
 }
-
-/* .background {
-    display: flex;
-    align-items: stretch;
-    text-align: center;
-    flex-wrap: nowrap;
-    flex-direction: column;
-} */
-
-.signup .errorProp {
+.create-event .errorProp {
     text-align: center;
     font-size: 30px;
     font-family: 'Roboto', sans-serif;
@@ -45,21 +36,7 @@ background-color --> good to see area enclosed
     font-size: 30px;
     font-family: 'Roboto', sans-serif;
 }
-
-/* .inputAndLabel { 
-    width: 80%; 
-    background-color: red;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    margin: 0 auto;
-    text-align: center;
-    text-align: left;
-    
-} */
-
-
-.signup label {
+.create-event label {
     text-align: left;
     font-family: 'Roboto', sans-serif;
     margin-top: 30px;
@@ -71,7 +48,7 @@ background-color --> good to see area enclosed
     line-height : 0px;
 }
 
-.signup input {
+.create-event input {
     text-align: left;
     padding-left: 10px;
     width: 60%;
@@ -84,15 +61,14 @@ background-color --> good to see area enclosed
     display: block;
     margin:auto;
 }
-
-.signup .login-link {
+.create-event .login-link {
     font-family: 'Roboto', sans-serif;
     text-align: center;
     font-size: 18px;
     color: #7AAEDE;
 }
 
-.signup .submit {
+.create-event .submit {
     margin-top: 50px;
 
     /* center the button */
@@ -110,7 +86,7 @@ background-color --> good to see area enclosed
     transition: color 0.5s ease;
 }
 
-.signup .bottom {
+.create-event .bottom {
     margin-top: 100px;
     font-family: 'Roboto', sans-serif;
     text-align: center;

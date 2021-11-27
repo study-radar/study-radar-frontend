@@ -12,8 +12,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import styled from 'styled-components'
 import Navbar from "./Navbar";
 
-export default function Home(props) {
-  const {userGroups, setUserGroups, groups, setGroups, fetchGroups, fetchGroupsForUser} = props
+export default function ExploreEvents(props) {
+  const { userGroups, setUserGroups, groups, setGroups, fetchGroups, fetchGroupsForUser } = props
 
 
   const { currentUser, logOutPostgres } = useAuth();
@@ -21,8 +21,7 @@ export default function Home(props) {
   const navigate = useNavigate();
 
   var my_calendar = new Calendar();
-
-  const [searchedUserGroups, setSearchedUserGroups] = useState([])
+  const [searchedGroups, setSearchedGroups] = useState([])
   const [searching, setSearching] = useState(false)
 
   const RefreshButton = styled('button')`
@@ -42,64 +41,62 @@ export default function Home(props) {
 
 
   async function handleLogout() {
-      await logOutPostgres();
-      navigate("/signup", { replace: true });
+    await logOutPostgres();
+    navigate("/signup", { replace: true });
   }
-  async function handleRefreshUserGroups(){
-    fetchGroupsForUser()
-
-  }
-  function filterUserGroups(e){
-    setSearching(!!e.target.value)
-    
-    setSearchedUserGroups(userGroups.filter(el => (el.name.startsWith(e.target.value))))
+  async function handleRefreshGroups() {
+    fetchGroups()
   }
 
   const _props = {
-    userGroups,
-    setUserGroups,
     groups,
     setGroups,
-
+    userGroups,
+    setUserGroups,
     fetchGroups,
     fetchGroupsForUser
   }
-  React.useEffect(()=>{
-    fetchGroupsForUser()
+  React.useEffect(() => {
+    // fetchGroupsForUser()
+    fetchGroups()
   }, [])
+  function filterGroups(e){
+    setSearching(!!e.target.value)
+    setSearchedGroups(groups.filter(el => (el.name.startsWith(e.target.value))))
+  }
 
   return !currentUser ? (
     <Navigate to="/signup" replace={true} />
   ) : (
     <div className="signup flex flex-col">
-      <Navbar/>
+      <Navbar />
       <body className="w-screen h-screen flex bg-indigo-400">
         <div className="wrap">
           <div className="w-full h-full bg-yellow-300 box">
-            <div class="topnav" style={{display: 'relative'}}>
-              <RefreshButton style={{display: 'absolute'}} onClick={handleRefreshUserGroups}>Refresh</RefreshButton>
+            <div class="topnav" style={{ display: 'relative' }}>
+              <RefreshButton style={{ display: 'absolute' }} onClick={handleRefreshGroups}>Refresh</RefreshButton>
               <div className="searchPrompt">
                 Search for the study sessions you want to join:
               </div>
-              <input type="text" placeholder="Search.." onChange={filterUserGroups} />
+              <input type="text" placeholder="Search.." onChange={filterGroups} />
             </div>
             {/* <StudyGroupCardList /> */}
             {
-            (searching ? searchedUserGroups : userGroups).map((group) => {
-              // console.log(group);
-              return <StudyGroupCard
-                id={group.id}
-                name={group.name}
-                subject={group.subject}
-                location={group.location}
-                imgurl={group.imgurl}
-                description={group.description}
-                numAttendence={group.users.length}
-                capacity={group.capacity}
-                created_by={group.created_by}
-                key={group.groupID}
-                {..._props}
-              />
+              (searching ? searchedGroups : groups).map((group) => {
+                // console.log(group);
+                return <StudyGroupCard
+                  id={group.id}
+                  name={group.name}
+                  subject={group.subject}
+                  location={group.location}
+                  imgurl={group.imgurl}
+                  description={group.description}
+                  numAttendence={group.users.length}
+                  capacity={group.capacity}
+                  created_by={group.created_by}
+                  key={group.groupID}
+                  {..._props}
+                />
               })
             }
           </div>
@@ -110,7 +107,7 @@ export default function Home(props) {
       </body>
 
       <Routes>
-        
+
       </Routes>
     </div>
   );

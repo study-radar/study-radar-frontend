@@ -1,4 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
+
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import {
   createUserWithEmailAndPassword,
@@ -19,6 +21,9 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+
+  
+  const navigate = useNavigate();
 
   function signUp(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -122,6 +127,38 @@ export function AuthProvider({ children }) {
     };
     fetchUser();
   }, []);
+
+
+  useEffect(() => {
+    fetchUser()
+      // .then(data => {
+      //   console.log(data);
+      //   // if(data)
+      //   //   navigate('/')
+
+      // })
+    
+  }, [])
+  useEffect(() => {
+    if(currentUser)
+      navigate('/')
+  }, [currentUser])
+
+
+  async function fetchUser() {
+    // const token = localStorage.getItem('studyradar')
+    apiClient.setToken(localStorage.getItem('studyradar'))
+    const { data, error } = await apiClient.getMe()
+    if (data) {
+      console.log('logged in');
+      setCurrentUser(data.user)
+      return data
+    }
+    else if (error) {
+      console.log('logged out');
+    }
+  }
+  
 
   const value = {
     currentUser,
