@@ -1,168 +1,72 @@
-//import Landingpage from "./components/Landingpage";
-//import Navbar from "./components/Navbar";
 import React from "react";
-import { AuthProvider, useAuth } from "./contexts/AuthContext";
-import { Container } from "react-bootstrap"
+import { AuthProvider } from "./contexts/AuthContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignUp from "./screens/SignUp";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
-import Calendar from "./screens/Calendar";
 import ForgotPassword from "./screens/ForgotPassword";
 import PrivateRoute from "./components/PrivateRoute";
 import UpdateProfile from "./screens/UpdateProfile";
-
-import apiClient from "./services/apiClient";
 import CreateEvent from "./screens/CreateEvent";
-import EventImage from "./components/EventImage";
 import ExploreEvents from "./screens/ExploreEvents";
-
-// import "./screens/SignUp.css";
-// import "./screens/Calendar.css";
+import UserGroupProvider from "./contexts/UserGroupContext";
 
 function App() {
-  const [userGroups, setUserGroups] = React.useState([..._groupsConstant])
-  const [groups, setGroups] = React.useState([..._groupsConstant])
-
-  async function fetchGroupsForUser() {
-    // resemble refresh
-    setUserGroups([])
-    const { data, error } = await apiClient.getGroupsForUser()
-    if (data) {
-      console.log('groups for user');
-      console.log(data);
-
-      setUserGroups([..._groupsConstant, ...data])
-    } else if (error) {
-      console.error(error);
-    }
-  }
-  async function fetchGroups() {
-    const { data, error } = await apiClient.getAllGroups()
-    if (data) {
-      console.log('groups');
-      console.log(data);
-      setGroups([..._groupsConstant, ...data])
-    } else if (error) {
-      console.error(error);
-    }
-  }
-  const props = {
-    userGroups,
-    setUserGroups,
-    groups,
-    setGroups,
-    fetchGroups,
-    fetchGroupsForUser,
-  }
-  React.useEffect(() => {
-    fetchGroupsForUser()
-  }, [])
-
-
   return (
-    
-    // <div className="App">
-    //   <Navbar />
-    //   <Landingpage />
-    // </div>
-    
-    // <Container
-      // className="d-flex align-items-center justify-content-center"
-      // style={{minHeight: "100vh"}}
-    // >
-    /* <div className="w-100"> */
     <Router>
       <AuthProvider>
-        <Routes>
-          <Route
-            path="/"
-            element={
-                <Home {...props} />
-            }
-          />
-          <Route
-            path="update-profile"
-            element={
-                <UpdateProfile />
-            }
-          />
-          <Route 
-            path="signup" 
-            element={
-                <SignUp />
-            } 
-          />
-          <Route 
-            path="login" 
-            element={
-                <Login />
-            } 
-          />
-          <Route 
-            path="calendar" 
-            element={
-              <div id="schedule">
-                <Calendar />
-              </div>
-              
-            } 
-          />
-          <Route 
-            path="forgot-password" 
-            element={
-                <ForgotPassword />
-            } 
-          />
-          <Route path="create-event"
-            element={<CreateEvent {...props} />}
+        <UserGroupProvider>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
             />
-          <Route path="explore-events"
-            element={<ExploreEvents {...props} />}
+            <Route
+              path="update-profile"
+              element={
+                <PrivateRoute>
+                  <UpdateProfile />
+                </PrivateRoute>
+              }
             />
-        </Routes>
+            <Route path="signup" element={<SignUp />} />
+            <Route path="login" element={<Login />} />
+            {/* <Route
+              path="calendar"
+              element={
+                <div id="schedule">
+                  <Calendar />
+                </div>
+              }
+            /> */}
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route
+              path="create-event"
+              element={
+                <PrivateRoute>
+                  <CreateEvent />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="explore-events"
+              element={
+                <PrivateRoute>
+                  <ExploreEvents />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </UserGroupProvider>
       </AuthProvider>
     </Router>
     /* </div> */
     // </Container>
-    );
- 
+  );
 }
 
 export default App;
-
-const _groupsConstant = []
-// const groupsConstant = [
-//   {
-//     name: "Final Review Session",
-//     id: 0,
-//     subject: "CS 35L",
-//     location: "Royce Hall",
-//     imgurl:
-//       "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/2019_UCLA_Royce_Hall_2.jpg/1600px-2019_UCLA_Royce_Hall_2.jpg",
-//     description: `Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-//             accusantium doloremque lquia consequuntur magni dolores eos qui ratione
-//             voluptatem sequi nesciunt.`,
-//     capacity: 3,
-//     created_by: "Bryson",
-//     users: [{},{}],
-//   },
-//   {
-//     name: "Random Study Session",
-//     id: 1,
-//     subject: "CS M51A",
-//     location: "Young Research Library",
-//     imgurl:
-//       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/2019_UCLA_Charles_E._Young_Research_Library.jpg/600px-2019_UCLA_Charles_E._Young_Research_Library.jpg",
-//     description: `Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-//             accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-//             illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-//             explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-//             odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-//             voluptatem sequi nesciunt.`,
-//     numAttendence: 5,
-//     capacity: 3,
-//     users: [{},{}],
-//     groupCreator: "Bryson",
-//   },
-// ];
