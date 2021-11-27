@@ -51,7 +51,7 @@ export default function Login() {
     <Navigate to="/" replace={true} />
   ) : (
     <>
-      <div>
+      <div className="signup">
         <h2 className="title">LOG IN</h2>
         {error && <h3 className="errorProp">{error}</h3>}
         {currentUser && currentUser.email}

@@ -34,7 +34,7 @@ export default function ForgotPassword() {
 
   return (
     <>
-      <div>
+      <div className="signup">
         <h2 className="title">RESET PASSWORD</h2>
         {message && <h3 className="errorProp">{message}</h3>}
         {error && <h3 className="errorProp">{error}</h3>}
