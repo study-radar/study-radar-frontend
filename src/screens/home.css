@@ -36,6 +36,11 @@ header {
   color: #7aaede;
 }
 
+.logout:hover {
+    color: #7AAEDE;
+    background-color: white;
+}
+
 .home-link {
   color: white;
   margin-right: 15px;
