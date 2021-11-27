@@ -20,13 +20,8 @@ class Calendar extends React.Component {
                 Status: 'Completed',
                 Priority: 'High'
             }];
-            // document.getElementById('schedule');
     }
-    async submitEvent(){
-       const returnedGroup = await apiClient.createGroup({
 
-       })
-    }
 
     render() {
         return <div className="home">
