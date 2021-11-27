@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import CalendarContainer from "../components/calendar/CalendarContainer";
-import Calendar from "./Calendar";
 //import StudyGroupCardList from "../components/StudyGroupCardList";
 //hello world
 import "./home.css";
@@ -16,8 +14,6 @@ export default function Home() {
   const { userGroups, fetchGroupsForUser } = useUserGroup();
 
   const { currentUser } = useAuth();
-
-  var my_calendar = new Calendar();
 
   const [searchedUserGroups, setSearchedUserGroups] = useState([]);
   const [searching, setSearching] = useState(false);
