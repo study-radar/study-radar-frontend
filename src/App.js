@@ -2,7 +2,6 @@
 //import Navbar from "./components/Navbar";
 import React from "react";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
-import { Container } from "react-bootstrap"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignUp from "./screens/SignUp";
 import Home from "./screens/Home";
@@ -16,33 +15,34 @@ import apiClient from "./services/apiClient";
 import CreateEvent from "./screens/CreateEvent";
 import EventImage from "./components/EventImage";
 import ExploreEvents from "./screens/ExploreEvents";
+import UserGroupProvider from "./contexts/UserGroupContext";
 
 // import "./screens/SignUp.css";
 // import "./screens/Calendar.css";
 
 function App() {
-  const [userGroups, setUserGroups] = React.useState([..._groupsConstant])
-  const [groups, setGroups] = React.useState([..._groupsConstant])
+  const [userGroups, setUserGroups] = React.useState([..._groupsConstant]);
+  const [groups, setGroups] = React.useState([..._groupsConstant]);
 
   async function fetchGroupsForUser() {
     // resemble refresh
-    setUserGroups([])
-    const { data, error } = await apiClient.getGroupsForUser()
+    setUserGroups([]);
+    const { data, error } = await apiClient.getGroupsForUser();
     if (data) {
-      console.log('groups for user');
+      console.log("groups for user");
       console.log(data);
 
-      setUserGroups([..._groupsConstant, ...data])
+      setUserGroups([..._groupsConstant, ...data]);
     } else if (error) {
       console.error(error);
     }
   }
   async function fetchGroups() {
-    const { data, error } = await apiClient.getAllGroups()
+    const { data, error } = await apiClient.getAllGroups();
     if (data) {
-      console.log('groups');
+      console.log("groups");
       console.log(data);
-      setGroups([..._groupsConstant, ...data])
+      setGroups([..._groupsConstant, ...data]);
     } else if (error) {
       console.error(error);
     }
@@ -54,84 +54,70 @@ function App() {
     setGroups,
     fetchGroups,
     fetchGroupsForUser,
-  }
+  };
   React.useEffect(() => {
-    fetchGroupsForUser()
-  }, [])
-
+    fetchGroupsForUser();
+  }, []);
 
   return (
-    
     // <div className="App">
     //   <Navbar />
     //   <Landingpage />
     // </div>
-    
+
     // <Container
-      // className="d-flex align-items-center justify-content-center"
-      // style={{minHeight: "100vh"}}
+    // className="d-flex align-items-center justify-content-center"
+    // style={{minHeight: "100vh"}}
     // >
     /* <div className="w-100"> */
     <Router>
       <AuthProvider>
-        <Routes>
-          <Route
-            path="/"
-            element={
-                <Home {...props} />
-            }
-          />
-          <Route
-            path="update-profile"
-            element={
-                <UpdateProfile />
-            }
-          />
-          <Route 
-            path="signup" 
-            element={
-                <SignUp />
-            } 
-          />
-          <Route 
-            path="login" 
-            element={
-                <Login />
-            } 
-          />
-          <Route 
-            path="calendar" 
-            element={
-              <div id="schedule">
-                <Calendar />
-              </div>
-              
-            } 
-          />
-          <Route 
-            path="forgot-password" 
-            element={
-                <ForgotPassword />
-            } 
-          />
-          <Route path="create-event"
-            element={<CreateEvent {...props} />}
+        <UserGroupProvider>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <Home {...props} />
+                </PrivateRoute>
+              }
             />
-          <Route path="explore-events"
-            element={<ExploreEvents {...props} />}
+            <Route
+              path="update-profile"
+              element={
+                <PrivateRoute>
+                  <UpdateProfile />
+                </PrivateRoute>
+              }
             />
-        </Routes>
+            <Route path="signup" element={<SignUp />} />
+            <Route path="login" element={<Login />} />
+            <Route
+              path="calendar"
+              element={
+                <div id="schedule">
+                  <Calendar />
+                </div>
+              }
+            />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="create-event" element={<CreateEvent {...props} />} />
+            <Route
+              path="explore-events"
+              element={<ExploreEvents {...props} />}
+            />
+          </Routes>
+        </UserGroupProvider>
       </AuthProvider>
     </Router>
     /* </div> */
     // </Container>
-    );
- 
+  );
 }
 
 export default App;
 
-const _groupsConstant = []
+const _groupsConstant = [];
 // const groupsConstant = [
 //   {
 //     name: "Final Review Session",
