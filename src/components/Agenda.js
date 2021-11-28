@@ -1,6 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useUserGroup } from "../contexts/UserGroupContext";
-import AgendaItem from "./AgendaItem";
+import AgendaItemList from "./AgendaItemList";
+
+const monthIndex = [
+  'January',
+  'February', 
+  'March', 
+  'April', 
+  'May', 
+  'June',
+  'July', 
+  'August', 
+  'September', 
+  'October', 
+  'November', 
+  'December'
+];
 
 export default function Agenda() {
     const {userGroups} = useUserGroup();
@@ -9,6 +24,8 @@ export default function Agenda() {
     const [currentWeekStart, setCurrentWeekStart] = useState('2021-10-28');
     // List of strings for the week
     const [currentWeek, setCurrentWeek] = useState([]);
+    // Dictionary from dates to date strings of groups the user is in
+    const [userGroupDateDict, setUserGroupDateDict] = useState(null);
 
     useEffect(() => {
       getCurrentWeek();
@@ -19,6 +36,27 @@ export default function Agenda() {
     useEffect(() => {
       createWeek(currentWeekStart);
     }, [currentWeekStart]);
+
+    // Everytime userGroups changes, we want to update the userGroupDateSet
+    useEffect(() => {
+      createUserGroupDateDict();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userGroups]);
+
+    function createUserGroupDateDict() {
+      const userGroupDateTimeDict = {};
+      for (let group of userGroups) {
+        const groupDateTimeStringSplit = group.date_time.split('T');
+        const groupDateString = groupDateTimeStringSplit[0];
+        const groupTimeString = groupDateTimeStringSplit[1];
+        // Covert to months that start with 0
+        const groupDateStringSplit = groupDateString.split('-');
+        groupDateStringSplit[1] = (parseInt(groupDateStringSplit[1]) - 1).toString();
+        const convertedGroupDateString = groupDateStringSplit.join('-');
+        userGroupDateTimeDict[convertedGroupDateString] = groupTimeString;
+      }
+      setUserGroupDateDict(userGroupDateTimeDict);
+    }
 
     function getCurrentWeek(){
         const today = new Date();
@@ -79,32 +117,35 @@ export default function Agenda() {
       setCurrentWeek(weekDayStrings);
     }
 
+    function expandDateString(dateString) {
+      const splitDateString = dateString.split('-');
+      return `${monthIndex[splitDateString[1]]} ${splitDateString[2]}, ${splitDateString[0]}`;
+    }
+
     return (
     <>
-    <p>{currentWeekStart}</p>
+    <p className="text-5xl">Week of {expandDateString(currentWeekStart)}</p>
+    <button onClick={decrementWeek}>Last Week</button>
+    <button onClick={incrementWeek}>Next Week</button>
+    <br/>
     <br/>
     {(currentWeek).map((dateString) => {
+        if (dateString in userGroupDateDict) {
+          return (<>
+            <p className="text-4xl">{expandDateString(dateString)}</p>
+            <AgendaItemList dateString={dateString}/>
+            <br/>
+            </>);
+        }
+        else {
         return (
           <>
-          <p>{dateString}</p>
+          <p className="text-4xl">{expandDateString(dateString)}</p>
+          <p className="text-3xl text-gray-300">No Study Groups for Today!</p>
           <br/>
           </>
         );
-      })}
-    <br/>
-    <button onClick={incrementWeek}>Next Week</button>
-    <br/>
-    <button onClick={decrementWeek}>Last Week</button>
-    <br/>
-    {(userGroups).map((group) => {
-        return (
-          <AgendaItem
-            key={group.id}
-            date_time={group.date_time}
-            id={group.id}
-            name={group.name}
-          />
-        );
+        }
       })}
     </>);
 }

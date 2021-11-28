@@ -91,9 +91,9 @@ export default function ExploreEvents() {
   ) : (
     <div className="signup flex flex-col">
       <Navbar />
-      <body className="w-screen h-screen flex bg-indigo-400">
+      <body className="w-screen h-screen flex">
         <div className="wrap">
-          <div className="w-full h-full bg-yellow-300 box">
+          <div className="w-full h-full box">
             <div class="topnav" style={{ display: "relative" }}>
               <div className="searchPrompt">
                 Search for the study sessions you want to join:
