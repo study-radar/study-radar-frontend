@@ -47,7 +47,13 @@ export default function CreateEvent() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const requiredFields = ["name", "description", "capacity", "dateTime"];
+    const requiredFields = [
+      "name",
+      "description",
+      "location",
+      "capacity",
+      "dateTime",
+    ];
     for (const field of requiredFields) {
       if (!form[field]) {
         setError(`Error: ${field} is empty...`);
@@ -59,6 +65,7 @@ export default function CreateEvent() {
       const { data, error } = await apiClient.createGroup({
         name: form.name,
         description: form.description,
+        location: form.location,
         date_time: form.dateTime,
         capacity: form.capacity,
         created_by: currentUser.email,
@@ -116,14 +123,14 @@ export default function CreateEvent() {
             placeholder="Enter event description"
           />
           <br />
-            <label>Location</label>
-            <input
-              type="text"
-              value={form.location}
-              onChange={(e) => setForm({ ...form, location: e.target.value })}
-              placeholder="Enter event location"
-            />
-            <br />
+          <label>Location</label>
+          <input
+            type="text"
+            value={form.location}
+            onChange={(e) => setForm({ ...form, location: e.target.value })}
+            placeholder="Enter event location"
+          />
+          <br />
           <label>Capacity</label>
           <input
             type="number"
