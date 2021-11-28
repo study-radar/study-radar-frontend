@@ -125,8 +125,8 @@ export default function Agenda() {
     return (
     <>
     <p className="text-5xl">Week of {expandDateString(currentWeekStart)}</p>
-    <button onClick={decrementWeek}>Last Week</button>
-    <button onClick={incrementWeek}>Next Week</button>
+    <button onClick={decrementWeek} className="bg-gray-400 border-none text-black py-2 px-9 text-center no-underline inline-block text-2xl rounded-lg">Last Week</button>
+    <button onClick={incrementWeek} className="bg-gray-400 border-none text-black py-2 px-9 text-center no-underline inline-block text-2xl rounded-lg">Next Week</button>
     <br/>
     <br/>
     {(currentWeek).map((dateString) => {
