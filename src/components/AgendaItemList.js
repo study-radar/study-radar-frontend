@@ -1,6 +1,7 @@
 import React from "react";
 import { useUserGroup } from "../contexts/UserGroupContext";
 import AgendaItem from "./AgendaItem";
+import "./agenda.css"
 
 export default function AgendaItemList(props) {
   const { userGroups } = useUserGroup();
@@ -33,12 +34,15 @@ export default function AgendaItemList(props) {
           return 0;
         })
         .map((group) => (
-          <AgendaItem
-            key={group.id}
-            date_time={group.date_time}
-            id={group.id}
-            name={group.name}
-          />
+          <div>
+            <AgendaItem
+              key={group.id}
+              date_time={group.date_time}
+              id={group.id}
+              name={group.name}
+            />
+          </div>
+          
         ))}
     </>
   );

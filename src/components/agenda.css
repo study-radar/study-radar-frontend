@@ -41,3 +41,22 @@
     color: white;
     background-color: #7AAEDE;
 }
+
+.study-groups {
+    margin: 20px;
+    background-color: #eaf5ff;
+    border-radius: 10px;
+}
+
+.agenda-item:hover {
+    background-color: white;
+}
+
+.agenda-item {
+    font-family: 'Source Code Pro', monospace;
+    text-transform: uppercase;
+}
+
+.date-str {
+    
+}

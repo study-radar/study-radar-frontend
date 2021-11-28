@@ -126,31 +126,36 @@ export default function Agenda() {
     return (
     <>
     <div className="agenda w-full h-full box">
-    <p className="text-5xl week">Week of {expandDateString(currentWeekStart)}</p>
-    <div className="change-week">
-      <button onClick={decrementWeek} className="prev-week bg-gray-400 border-none text-black py-2 px-9 text-center no-underline inline-block text-2xl rounded-lg">Last Week</button>
-      <button onClick={incrementWeek} className="next-week bg-gray-400 border-none text-black py-2 px-9 text-center no-underline inline-block text-2xl rounded-lg">Next Week</button>
-    </div>
-    <br/>
-    <br/>
-    {(currentWeek).map((dateString) => {
-        if (dateString in userGroupDateDict) {
-          return (<>
-            <p className="text-4xl">{expandDateString(dateString)}</p>
-            <AgendaItemList dateString={dateString}/>
-            <br/>
-            </>);
-        }
-        else {
-        return (
-          <>
-          <p className="text-4xl">{expandDateString(dateString)}</p>
-          <p className="text-3xl text-gray-300">No Study Groups for Today!</p>
-          <br/>
-          </>
-        );
-        }
-      })}
+      <p className="text-5xl week">Week of {expandDateString(currentWeekStart)}</p>
+      <div className="change-week">
+        <button onClick={decrementWeek} className="prev-week bg-gray-400 border-none text-black py-2 px-9 text-center no-underline inline-block text-2xl rounded-lg">Last Week</button>
+        <button onClick={incrementWeek} className="next-week bg-gray-400 border-none text-black py-2 px-9 text-center no-underline inline-block text-2xl rounded-lg">Next Week</button>
+      </div>
+      <div className="study-groups">
+        {(currentWeek).map((dateString) => {
+            if (dateString in userGroupDateDict) {
+              return (<>
+                <div className="agenda-item">
+                  <p className="text-4xl date-str">{expandDateString(dateString)}</p>
+                  <AgendaItemList dateString={dateString}/>
+                  <br/>
+                </div>
+                </>);
+            }
+            else {
+            return (
+              <>
+              <div className="agenda-item">
+                <p className="text-4xl">{expandDateString(dateString)}</p>
+                <p className="text-3xl text-gray-300">No Study Groups for Today!</p>
+                <br/>
+              </div>
+              
+              </>
+            );
+            }
+          })}
+      </div>
     </div>
     </>);
 }
