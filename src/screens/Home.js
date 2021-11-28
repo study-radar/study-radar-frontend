@@ -39,13 +39,10 @@ export default function Home() {
       <body className="w-screen h-screen flex">
         <div className="wrap">
           <div className="w-full h-full box">
-            <div class="topnav" style={{ display: "relative" }}>
-              <div className="searchPrompt">
-                Search for the study sessions you want to join:
-              </div>
+            <div class="topnav search" style={{ display: "relative" }}>
               <input
                 type="text"
-                placeholder="Search.."
+                placeholder="Search study sessions to join..."
                 onChange={filterUserGroups}
               />
             </div>

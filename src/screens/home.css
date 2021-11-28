@@ -70,3 +70,7 @@ header {
 .home-link:hover {
   color: #7aaede;
 }
+
+.search input{
+  width: 90%;
+}

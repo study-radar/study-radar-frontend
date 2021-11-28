@@ -63,10 +63,12 @@ export default function ExploreEvents() {
     const userGroupIds = userGroups.map(({ id }) => id);
     if (userGroupIds.includes(group.id)) {
       return (
-        <JoinLeaveButton
-          onClick={() => handleLeaveGroup(group.id)}
-          type="leave"
-        />
+        <div className="join-leave">
+          <JoinLeaveButton
+            onClick={() => handleLeaveGroup(group.id)}
+            type="leave"
+          />
+        </div>
       );
     }
     if (
@@ -74,10 +76,13 @@ export default function ExploreEvents() {
       !userGroupIds.includes(group.id)
     ) {
       return (
-        <JoinLeaveButton
-          onClick={() => handleJoinGroup(group.id)}
-          type="join"
-        />
+        <div className="join-leave">
+          <JoinLeaveButton
+            onClick={() => handleJoinGroup(group.id)}
+            type="join"
+          />
+        </div>
+        
       );
     }
 
@@ -92,13 +97,10 @@ export default function ExploreEvents() {
       <body className="w-screen h-screen flex">
         <div className="wrap">
           <div className="w-full h-full box">
-            <div class="topnav" style={{ display: "relative" }}>
-              <div className="searchPrompt">
-                Search for the study sessions you want to join:
-              </div>
+            <div class="topnav search" style={{ display: "relative" }}>
               <input
                 type="text"
-                placeholder="Search.."
+                placeholder="Search study sessions to join..."
                 onChange={filterGroups}
               />
             </div>
