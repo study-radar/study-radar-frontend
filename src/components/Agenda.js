@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useUserGroup } from "../contexts/UserGroupContext";
 import AgendaItemList from "./AgendaItemList";
+import "./agenda.css"
 
 const monthIndex = [
   'January',
@@ -124,9 +125,12 @@ export default function Agenda() {
 
     return (
     <>
-    <p className="text-5xl">Week of {expandDateString(currentWeekStart)}</p>
-    <button onClick={decrementWeek} className="bg-gray-400 border-none text-black py-2 px-9 text-center no-underline inline-block text-2xl rounded-lg">Last Week</button>
-    <button onClick={incrementWeek} className="bg-gray-400 border-none text-black py-2 px-9 text-center no-underline inline-block text-2xl rounded-lg">Next Week</button>
+    <div className="agenda w-full h-full box">
+    <p className="text-5xl week">Week of {expandDateString(currentWeekStart)}</p>
+    <div className="change-week">
+      <button onClick={decrementWeek} className="prev-week bg-gray-400 border-none text-black py-2 px-9 text-center no-underline inline-block text-2xl rounded-lg">Last Week</button>
+      <button onClick={incrementWeek} className="next-week bg-gray-400 border-none text-black py-2 px-9 text-center no-underline inline-block text-2xl rounded-lg">Next Week</button>
+    </div>
     <br/>
     <br/>
     {(currentWeek).map((dateString) => {
@@ -147,5 +151,6 @@ export default function Agenda() {
         );
         }
       })}
+    </div>
     </>);
 }
