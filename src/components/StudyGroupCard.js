@@ -1,15 +1,16 @@
 import React from "react";
+import "../screens/feed.css"
 
 export default function StudyGroupCard(props) {
   return (
     <div
       id="card-container"
-      className="w-full h-auto flex flex-col shadow-lg rounded-lg"
-      style={{ border: "1px solid black", padding: "8px" }}
+      className="w-full h-auto flex flex-col card"
+      style={{ border: "3px solid black", padding: "8px" }}
     >
       <div
         id="card-header"
-        className="w-full h-auto bg-gray-50 font-sans px-8 py-4"
+        className="w-full h-auto px-8 py-4 card-head"
       >
         <h2 className="text-xl">{props?.name}</h2>
         <h2 className="text-xl">📍 {props.location}</h2>
@@ -20,7 +21,7 @@ export default function StudyGroupCard(props) {
       </div>
       <div
         id="card-image"
-        className="w-full h-auto bg-blue-400 rounded-lg"
+        className="w-full h-auto back rounded-lg"
         style={{ display: "flex", justifyContent: "center" }}
       >
         <img
@@ -35,7 +36,7 @@ export default function StudyGroupCard(props) {
       </div>
       <div
         id="card-footer"
-        className="w-full h-auto bg-gray-50 font-sans px-8 py-4"
+        className="w-full h-auto card-foot px-8 py-4"
       >
         {props.description}
       </div>

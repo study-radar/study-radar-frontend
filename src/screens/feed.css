@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Source+Code+Pro:wght@700&display=swap');
 
 /* Add a black background color to the top navigation bar */
 .topnav {
@@ -14,6 +16,19 @@
 
 .join-leave {
     margin-top: 10px;
+}
+
+.card {
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.card-head, .card-foot {
+    font-family: 'Source Code Pro', monospace;
+}
+
+.back {
+    background-color: #eaf5ff;
 }
 
 .avatar {

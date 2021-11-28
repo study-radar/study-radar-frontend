@@ -73,4 +73,6 @@ header {
 
 .search input{
   width: 90%;
+  font-family: 'Source Code Pro', monospace;
+  text-transform: uppercase;
 }

@@ -2,9 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Source+Code+Pro:wght@700&display=swap');
 
-.agenda  {
-}
-
 .week {
     font-size: 40px;
     text-transform: uppercase;
@@ -53,6 +50,11 @@
 }
 
 .agenda-item {
+    font-family: 'Source Code Pro', monospace;
+    text-transform: uppercase;
+}
+
+.join, .leave {
     font-family: 'Source Code Pro', monospace;
     text-transform: uppercase;
 }

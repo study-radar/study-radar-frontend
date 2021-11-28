@@ -9,7 +9,7 @@ export default function JoinLeaveButton(props) {
       return (
         <button
           onClick={props.onClick}
-          className="bg-green-400 border-none text-white py-2 px-9 text-center no-underline inline-block text-2xl rounded-lg"
+          className="join bg-green-400 border-none text-white py-2 px-9 text-center no-underline inline-block text-2xl rounded-lg"
         >
           Join
         </button>
@@ -19,7 +19,7 @@ export default function JoinLeaveButton(props) {
       return (
         <button
           onClick={props.onClick}
-          className="border-none bg-red-500 text-white py-2 px-9 text-center no-underline inline-block text-2xl rounded-lg"
+          className="leave border-none bg-red-500 text-white py-2 px-9 text-center no-underline inline-block text-2xl rounded-lg"
         >
           Leave
         </button>
