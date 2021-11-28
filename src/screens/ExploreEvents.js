@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import CalendarContainer from "../components/calendar/CalendarContainer";
-import Calendar from "./Calendar";
+import Agenda from "../components/Agenda";
 //import StudyGroupCardList from "../components/StudyGroupCardList";
 import "./home.css";
 import "./feed.css";
@@ -18,7 +17,6 @@ export default function ExploreEvents() {
 
   const { currentUser } = useAuth();
 
-  var my_calendar = new Calendar();
   const [searchedGroups, setSearchedGroups] = useState([]);
   const [searching, setSearching] = useState(false);
 
@@ -123,8 +121,8 @@ export default function ExploreEvents() {
               );
             })}
           </div>
-          <div className="container box">
-            <CalendarContainer calendar={my_calendar} />
+          <div>
+            <Agenda />
           </div>
         </div>
       </body>
