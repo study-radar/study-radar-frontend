@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import CalendarContainer from "../components/calendar/CalendarContainer";
-import Calendar from "./Calendar";
 //import StudyGroupCardList from "../components/StudyGroupCardList";
 //hello world
 import "./home.css";
 import "./feed.css";
 import StudyGroupCard from "../components/StudyGroupCard";
+import Agenda from "../components/Agenda";
 import Navbar from "./Navbar";
 import { useUserGroup } from "../contexts/UserGroupContext";
 
@@ -15,8 +14,6 @@ export default function Home() {
   const { userGroups, fetchGroupsForUser } = useUserGroup();
 
   const { currentUser } = useAuth();
-
-  var my_calendar = new Calendar();
 
   const [searchedUserGroups, setSearchedUserGroups] = useState([]);
   const [searching, setSearching] = useState(false);
@@ -39,9 +36,9 @@ export default function Home() {
   ) : (
     <div className="signup flex flex-col">
       <Navbar />
-      <body className="w-screen h-screen flex bg-indigo-400">
+      <body className="w-screen h-screen flex">
         <div className="wrap">
-          <div className="w-full h-full bg-yellow-300 box">
+          <div className="w-full h-full box">
             <div class="topnav" style={{ display: "relative" }}>
               <div className="searchPrompt">
                 Search for the study sessions you want to join:
@@ -70,8 +67,8 @@ export default function Home() {
               );
             })}
           </div>
-          <div className="container box">
-            <CalendarContainer calendar={my_calendar} />
+          <div>
+            <Agenda/>
           </div>
         </div>
       </body>
