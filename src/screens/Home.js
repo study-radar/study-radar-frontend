@@ -22,9 +22,9 @@ export default function Home() {
     setSearching(!!e.target.value);
 
     setSearchedUserGroups(
-      userGroups.filter((el) => el.name.startsWith(e.target.value))
+      userGroups.filter((el) => el.name.toLowerCase().includes(e.target.value.toLowerCase()))
     );
-  }
+  } 
 
   React.useEffect(() => {
     fetchGroupsForUser();

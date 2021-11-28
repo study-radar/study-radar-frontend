@@ -29,7 +29,7 @@ export default function ExploreEvents() {
   function filterGroups(e) {
     setSearching(!!e.target.value);
     setSearchedGroups(
-      allGroups.filter((el) => el.name.startsWith(e.target.value))
+      allGroups.filter((el) => el.name.toLowerCase().includes(e.target.value.toLowerCase()))
     );
   }
 
