@@ -24,7 +24,7 @@ export default function Navbar() {
             <img
               className="logo1"
               alt="logo"
-              src="https://cdn.dribbble.com/users/1611223/screenshots/6390568/36daysoftype_4x.jpg"
+              src="icon.png"
               width="50"
               height="90"
             />
