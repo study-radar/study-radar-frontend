@@ -24,7 +24,7 @@ export default function Navbar() {
             <img
               className="logo1"
               alt="logo"
-              src="icon.png"
+              src="logo.png"
               width="50"
               height="90"
             />
