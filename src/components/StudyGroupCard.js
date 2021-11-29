@@ -13,7 +13,7 @@ export default function StudyGroupCard(props) {
         className="w-full h-auto px-8 py-4 card-head"
       >
         <h2 className="text-xl">{props?.name}</h2>
-        <h2 className="text-xl">📍 {props.location}</h2>
+        <h2 className="text-xl">📍{props.location}</h2>
         <h4 className="text-base">Created by: {props.created_by}</h4>
         <h4 className="text-base">
           Availability: {props.numAttendence}/{props.capacity}
