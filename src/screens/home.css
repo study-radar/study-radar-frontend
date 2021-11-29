@@ -73,3 +73,10 @@ header {
   font-family: 'Source Code Pro', monospace;
   text-transform: uppercase;
 }
+
+.study-radar {
+  float: left;
+  margin-left: 50px;
+  text-shadow: 2px 2px 4px #7fffd4;
+  text-transform: none;
+}
