@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
-import Navbar from "./Navbar";
 
 export default function UpdateProfile() {
   const { updateUserPassword, updateUserEmail, currentUser } = useAuth();
@@ -70,52 +69,52 @@ export default function UpdateProfile() {
     <>
       {/* <Navbar style={{position: 'relative ', top: '0'}}/> */}
 
-      
       <div className="signup">
         <h2 className="title">UPDATE PROFILE</h2>
         {error && <h3>{error}</h3>}
-        {currentUser && <h2 className="subtitle">Current email: {currentUser.email}</h2>}
+        {currentUser && (
+          <h2 className="subtitle">Current email: {currentUser.email}</h2>
+        )}
         <form onSubmit={handleSubmit}>
-          <label>
-            EMAIL
-          </label>
+          <label>EMAIL</label>
           <input
-              type="email"
-              value={email}
-              onChange={handleEmailChange}
-              required
-            />
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+            required
+          />
           <br />
-          <label>
-            PASSWORD
-          </label>
+          <label>PASSWORD</label>
           <input
-              type="password"
-              value={password}
-              onChange={handlePasswordChange}
-              placeholder="Leave blank to keep password"
-            />
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            placeholder="Leave blank to keep password"
+          />
           <br />
-          <label>
-            CONFIRM PASSWORD
-          </label>
+          <label>CONFIRM PASSWORD</label>
           <input
-              type="password"
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-            />
+            type="password"
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+          />
           <br />
-          <label>
-            MAJOR
-          </label>
+          <label>MAJOR</label>
           <input
-              // further change required
-              type="major"
-              value={major}
-              onChange={handleMajorChange}
+            // further change required
+            type="major"
+            value={major}
+            onChange={handleMajorChange}
           />
         </form>
-      <button className="submit" onClick={handleGoBack} type="submit" disabled={loading}>CANCEL</button>
+        <button
+          className="submit"
+          onClick={handleGoBack}
+          type="submit"
+          disabled={loading}
+        >
+          CANCEL
+        </button>
       </div>
     </>
   );
