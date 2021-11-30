@@ -27,7 +27,7 @@ export default function SignUp() {
       setError("");
       setLoading(true);
       // await signUp(email, password);
-      const data = await signUpPostgres(email, password);
+      const data = await signUpPostgres(email, password, major);
 
       if (data.data) {
         console.log("Successful sign up");

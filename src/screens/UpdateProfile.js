@@ -3,6 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 import Navbar from "./Navbar";
+import apiClient from "../services/apiClient";
 
 export default function UpdateProfile() {
   const { updateUserPassword, updateUserEmail, currentUser } = useAuth();
@@ -17,7 +18,7 @@ export default function UpdateProfile() {
 
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     // TODO: Test out edge cases, e.g. password is blank if they don't want to change
@@ -25,25 +26,40 @@ export default function UpdateProfile() {
       return setError("Passwords do not match");
     }
 
-    const promises = [];
-    setError("");
-    setLoading(true);
-    if (email && email !== currentUser.email) {
-      promises.push(updateUserEmail(email));
+    const credentials = {}
+    credentials.email = email
+    credentials.major = major 
+    const {data, error} = await apiClient.updateUserInfo({
+      info: {
+        credentials
+      }
+    })
+    if(data){
+      alert('success')
+    }else if(error){
+      setError(error)
+      console.error(error);
     }
-    if (password) {
-      promises.push(updateUserPassword(password));
-    }
-    Promise.all(promises)
-      .then(() => {
-        navigate(-1);
-      })
-      .catch(() => {
-        setError("Failed to update account");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+
+    // const promises = [];
+    // setError("");
+    // setLoading(true);
+    // if (email && email !== currentUser.email) {
+    //   promises.push(updateUserEmail(email));
+    // }
+    // if (password) {
+    //   promises.push(updateUserPassword(password));
+    // }
+    // Promise.all(promises)
+    //   .then(() => {
+    //     navigate(-1);
+    //   })
+    //   .catch(() => {
+    //     setError("Failed to update account");
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });
   }
 
   function handleGoBack() {
@@ -115,7 +131,9 @@ export default function UpdateProfile() {
               onChange={handleMajorChange}
           />
         </form>
-      <button className="submit" onClick={handleGoBack} type="submit" disabled={loading}>CANCEL</button>
+      {/* <button className="submit" onClick={handleGoBack} type="submit" disabled={loading}>CANCEL</button> */}
+      <button className="submit" onClick={handleGoBack} type="submit" >CANCEL</button>
+      <button className="submit" onClick={handleGoBack} type="submit" >SAVE</button>
       </div>
     </>
   );

@@ -24,10 +24,11 @@ export function AuthProvider({ children }) {
     return createUserWithEmailAndPassword(auth, email, password);
   }
 
-  async function signUpPostgres(email, password) {
+  async function signUpPostgres(email, password, major) {
     const data = await apiClient.signUpUser({
       email,
       password,
+      major,
     });
 
     console.log("Sign Up Postgres");
