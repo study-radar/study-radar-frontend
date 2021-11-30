@@ -1,70 +1,25 @@
-# Getting Started with Create React App
+# Study Radar
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Study Radar is a full-stack website project bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Setting up the development environment 
 
-In the project directory, you can run:
+Clone this repo with `https://github.com/study-radar/study-radar-frontend.git`.\
+Change into study-radar-frontend directory with `cd study-radar-frontend`.\
+Run `npm install` to install the project's dependencies.\
+Run `npm start` to start the server.\
+Visit [http://localhost:3000](http://localhost:3000) to view the site.\
+To connect to the backend, please visit [study-radar-backend repository](https://github.com/study-radar/study-radar-backend).
 
-### `npm start`
+## Using Study Radar
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Remember to connect to the backend by following instructions at [study-radar-backend repository](https://github.com/study-radar/study-radar-backend).\
+Login or signup to enter homepage.\
+Create a new study group event using the `CREATE EVENT` tag on the navbar.\
+Your events will show up on your homepage.\
+Find a study group to join or leave a study group by clicking the `EXPLORE` tag on the navbar.\
+Your events will be recorded on the agenda on the right side of the page.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Other notes
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is the Final Project for UCLA's CS35L Software Construction course. Please feel free to fork and adjust to your needs/wants.
