@@ -74,19 +74,18 @@ background-color --> good to see area enclosed
     margin-top: 50px;
 
     /* center the button */
-    /* position: absolute; */
+    position: absolute;
     left: 50%;
-    /* -ms-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    transition: color 0.5s ease; */
 
     background-color: black;
     color: #7AAEDE;
     font-size: 18px;
     text-align: center;
     padding: 10px 20px;
-    margin: 10px 20px;
     border-radius: 10px;
+    transition: color 0.5s ease;
     font-weight: 700;
 }
 .signup .submit-buttons{
