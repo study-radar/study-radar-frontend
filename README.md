@@ -9,7 +9,8 @@ Change into study-radar-frontend directory with `cd study-radar-frontend`.\
 Run `npm install` to install the project's dependencies.\
 Run `npm start` to start the server.\
 Visit [http://localhost:3000](http://localhost:3000) to view the site.\
-To connect to the backend, please visit [study-radar-backend repository](https://github.com/study-radar/study-radar-backend).
+# Connecting the backend\
+Follow the instructions at [study-radar-backend repository](https://github.com/study-radar/study-radar-backend).
 
 ## Using Study Radar
 
