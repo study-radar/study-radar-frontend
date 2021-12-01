@@ -30,9 +30,9 @@ export default function UpdateProfile() {
     credentials.email = email
     credentials.major = major 
     const {data, error} = await apiClient.updateUserInfo({
-      info: {
+      info: 
         credentials
-      }
+      
     })
     if(data){
       alert('success')
@@ -124,9 +124,10 @@ export default function UpdateProfile() {
             onChange={handleMajorChange}
           />
         </form>
-      {/* <button className="submit" onClick={handleGoBack} type="submit" disabled={loading}>CANCEL</button> */}
-      <button className="submit" onClick={handleGoBack} type="submit" >CANCEL</button>
-      <button className="submit" onClick={handleGoBack} type="submit" >SAVE</button>
+      <div className="submit-buttons">
+        <button className="submit-buttons-button" onClick={handleGoBack} type="submit" >CANCEL</button>
+        <button className="submit-buttons-button" onClick={handleGoBack} type="submit" >SAVE</button>
+      </div>
       </div>
     </>
   );
