@@ -6,13 +6,13 @@ import Navbar from "./Navbar";
 import apiClient from "../services/apiClient";
 
 export default function UpdateProfile() {
-  const { updateUserPassword, updateUserEmail, currentUser } = useAuth();
+  const { updateUserPassword, updateUserEmail, currentUser, setCurrentUser } = useAuth();
 
   // Hardcoded values for testing
   const [email, setEmail] = useState(currentUser?.email);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [major, setMajor] = useState("");
+  const [major, setMajor] = useState(currentUser?.major || '' );
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -32,10 +32,12 @@ export default function UpdateProfile() {
     const {data, error} = await apiClient.updateUserInfo({
       info: 
         credentials
-      
     })
+    console.log(data);
     if(data){
-      alert('success')
+      // alert('success')
+      setCurrentUser(data)
+      navigate(-1)
     }else if(error){
       setError(error)
       console.error(error);
@@ -88,7 +90,7 @@ export default function UpdateProfile() {
 
       <div className="signup">
         <h2 className="title">UPDATE PROFILE</h2>
-        {error && <h3>{error}</h3>}
+        {<h3 style={{textAlign: 'center', color: 'red', fontSize: '20px'}}>{error}</h3>}
         {currentUser && (
           <h2 className="subtitle">Current email: {currentUser.email}</h2>
         )}
@@ -126,7 +128,7 @@ export default function UpdateProfile() {
         </form>
       <div className="submit-buttons">
         <button className="submit-buttons-button" onClick={handleGoBack} type="submit" >CANCEL</button>
-        <button className="submit-buttons-button" onClick={handleGoBack} type="submit" >SAVE</button>
+        <button className="submit-buttons-button" onClick={handleSubmit} type="submit" >SAVE</button>
       </div>
       </div>
     </>

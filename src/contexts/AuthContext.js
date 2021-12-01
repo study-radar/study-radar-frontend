@@ -130,6 +130,7 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
+    setCurrentUser,
     signUp,
     signUpPostgres,
     logIn,
