@@ -20,20 +20,22 @@ export default function Login() {
       setError("");
       setLoading(true);
       // await logIn(email, password);
-      const data = await logInPostgres(email, password);
+      const {data, error}= await logInPostgres(email, password);
 
-      if (data.data) {
+      if (data) {
         console.log("Successful log in");
-        console.log(data.data);
-      } else if (data.error) {
+        console.log(data);
+        navigate("/", { replace: true });
+
+      } else if (error) {
         console.log("Unsuccessful log in");
-        setError("Unsuccessful log in");
-        throw error;
+        // setError("Unsuccessful log in");
+        setError(error || "Unsuccessful log in");
+        // throw error;
       }
 
-      navigate("/", { replace: true });
     } catch {
-      setError("Failed to log in");
+      // setError("Failed to log in");
     }
 
     setLoading(false);
@@ -53,7 +55,7 @@ export default function Login() {
     <>
       <div className="signup">
         <h2 className="title">LOG IN</h2>
-        {error && <h3 className="errorProp">{error}</h3>}
+        {/* {error && <h3 className="errorProp">{error}</h3>} */}
         {currentUser && currentUser.email}
         <form onSubmit={handleSubmit}>
           <label className="labelProp">EMAIL</label>
@@ -73,6 +75,7 @@ export default function Login() {
             onChange={handlePasswordChange}
           />
           <br />
+          <h3 style={{ textAlign: 'center', color: 'red' }}>{error}</h3>
           <button className="submit" type="submit" disabled={loading}>
             LOG IN
           </button>

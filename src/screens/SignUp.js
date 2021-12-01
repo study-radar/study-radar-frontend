@@ -27,23 +27,29 @@ export default function SignUp() {
       setError("");
       setLoading(true);
       // await signUp(email, password);
-      const data = await signUpPostgres(email, password, major);
+      console.log('sfjklds');
+      const {data, error}= await signUpPostgres(email, password, major);
+      // console.log('fjsklfjsdklfjsfkljdsflksjflkjdfklsdjl');
+      console.log({data, error});
+      console.log(data);
+      console.log(error);
 
-      if (data.data) {
+      if (data) {
         console.log("Successful sign up");
-        console.log(data.data);
-      } else if (data.error) {
+        console.log(data);
+        navigate("/", { replace: true });
+
+      } else if (error) {
         console.log("Unsuccessful sign up");
-        setError("Unsuccessful sign up");
-        throw error;
+        console.log(`error: ${error}`);
+        setError(error || "Unsuccessful sign up");
       }
 
-      navigate("/", { replace: true });
     } catch (signUpError) {
       setError("Failed to create an account");
     }
 
-    navigate("/", { replace: true });
+    // navigate("/", { replace: true });
     setLoading(false);
   }
 
@@ -70,7 +76,7 @@ export default function SignUp() {
     <div className="signup">
       <h2 className="title">REGISTER</h2>
       <h2 className="subtitle">Choose Email and Password</h2>
-      {error && <h3>{error}</h3>}
+      {/* {error && <h3>jfksldj{error}</h3>} */}
       {currentUser && currentUser.email}
       <form onSubmit={handleSubmit}>
         <div className="inputAndLabel">
@@ -108,6 +114,9 @@ export default function SignUp() {
           />
           <br />
         </div>
+
+        <h3 style={{textAlign: 'center', color: 'red'}}>{error}</h3>
+
         <button className="submit" type="submit" disabled={loading}>
           REGISTER
         </button>

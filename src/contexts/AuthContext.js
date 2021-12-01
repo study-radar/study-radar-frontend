@@ -25,26 +25,30 @@ export function AuthProvider({ children }) {
   }
 
   async function signUpPostgres(email, password, major) {
-    const data = await apiClient.signUpUser({
+    const {data, error}= await apiClient.signUpUser({
       email,
       password,
       major,
     });
+    console.log({ data, error });
 
-    console.log("Sign Up Postgres");
-    console.log(data);
+
+    // console.log("Sign Up Postgres");
+    // console.log(data);
 
     // If successful, set the current user and token
-    if (data.data) {
-      setCurrentUser(data.data.user);
-      apiClient.setToken(data.data.token);
-    } else if (data.error) {
+    if (data) {
+      setCurrentUser(data.user);
+      apiClient.setToken(data.token);
+    } else if (error) {
       setCurrentUser(null);
       localStorage.removeItem(apiClient.tokenName);
-      throw new Error("Error logging in");
+      // throw new Error("Error logging in");
     }
 
-    return data;
+
+    return {data, error}
+    // return data;
   }
 
   function logIn(email, password) {
@@ -52,7 +56,7 @@ export function AuthProvider({ children }) {
   }
 
   async function logInPostgres(email, password) {
-    const data = await apiClient.loginUser({
+    const {data, error}= await apiClient.loginUser({
       email,
       password,
     });
@@ -61,16 +65,16 @@ export function AuthProvider({ children }) {
     console.log(data);
 
     // If successful, set the current user and token
-    if (data.data) {
-      setCurrentUser(data.data.user);
-      apiClient.setToken(data.data.token);
-    } else if (data.error) {
+    if (data) {
+      setCurrentUser(data.user);
+      apiClient.setToken(data.token);
+    } else if (error) {
       setCurrentUser(null);
       localStorage.removeItem(apiClient.tokenName);
-      throw new Error("Error logging in");
+      // throw new Error("Error logging in");
     }
 
-    return data;
+    return {data, error};
   }
 
   function logOut() {
