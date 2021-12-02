@@ -60,6 +60,7 @@ export default function Home() {
                   numAttendence={group.users.length}
                   capacity={group.capacity}
                   created_by={group.created_by}
+                  date_time={group.date_time}
                 />
               );
             })}

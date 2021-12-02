@@ -47,7 +47,8 @@ export default function StudyGroupCard(props) {
       className="w-full h-auto flex flex-col card"
       style={{ border: "3px solid black", padding: "8px" }}
     >
-      <div id="card-header" className="w-full h-auto px-8 py-4 card-head">
+      <div id="card-header" className="w-full h-auto px-8 py-4 card-head" style={{position: 'relative'}}>
+        <h2 style={{ textAlign: 'right', position: 'absolute', top: '0', right: '0' }} className="text-xl">📆 {`${props.date_time.split('T')[0]} at ${props.date_time.split('T')[1]}`}</h2>
         <h2 className="text-xl">{props?.name}</h2>
         <h2 className="text-xl">📍{props.location}</h2>
         <h4 className="text-base">Created by: {props.created_by}</h4>

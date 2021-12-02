@@ -47,6 +47,7 @@ export default function StudyGroupCardList() {
       numAttendence={group.numAttendence}
       groupCreator={group.groupCreator}
       key={group.groupID}
+      date_time={group.date_time}
     />
   ));
   return <div>{listItems}</div>;

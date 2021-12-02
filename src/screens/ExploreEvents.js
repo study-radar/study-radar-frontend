@@ -119,6 +119,7 @@ export default function ExploreEvents() {
                   capacity={group.capacity}
                   created_by={group.created_by}
                   eventButton={createEventButton(group)}
+                  date_time={group.date_time}
                 />
               );
             })}
