@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useUserGroup } from "../contexts/UserGroupContext";
 import AgendaItem from "./AgendaItem";
-import "./agenda.css"
+import "./agenda.css";
 
 export default function AgendaItemList(props) {
   const { userGroups } = useUserGroup();
+
+  useEffect(() => {
+    // console.log(props.dateString);
+  }, []);
 
   // Props should include the dateString to render
   return (
@@ -42,7 +46,6 @@ export default function AgendaItemList(props) {
               name={group.name}
             />
           </div>
-          
         ))}
     </>
   );
