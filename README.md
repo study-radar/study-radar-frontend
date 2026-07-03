@@ -1,26 +1,59 @@
-# Study Radar
+# StudyRadar
 
-Study Radar is a full-stack website project bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack web app for UCLA students to create and join study group events. Built as the final project for UCLA's CS 35L (Software Construction).
 
-## Setting up the development environment 
+**Live:** [study-radar-frontend](https://github.com/study-radar/study-radar-frontend) | **Backend:** [study-radar-backend](https://github.com/study-radar/study-radar-backend)
 
-Clone this repo with `https://github.com/study-radar/study-radar-frontend.git`.\
-Change into study-radar-frontend directory with `cd study-radar-frontend`.\
-Run `npm install` to install the project's dependencies.\
-Run `npm start` to start the server.\
-Visit [http://localhost:3000](http://localhost:3000) to view the site.
-### Connecting the backend
-Follow the instructions at [study-radar-backend repository](https://github.com/study-radar/study-radar-backend).
+## Features
 
-## Using Study Radar
+- **Authentication** -- Sign up, log in, forgot password (Firebase Auth)
+- **Home feed** -- View your upcoming study group events with agenda sidebar
+- **Create Event** -- Post a new study group with subject, time, location, and description
+- **Explore** -- Browse all public study groups and join or leave with one click
+- **Calendar** -- Visual calendar view of events (`react-big-calendar` + Syncfusion scheduler)
+- **Profile** -- Update account details
 
-Remember to connect to the backend by following instructions at [study-radar-backend repository](https://github.com/study-radar/study-radar-backend).\
-Login or signup to enter homepage.\
-Create a new study group event using the `CREATE EVENT` tag on the navbar.\
-Your events will show up on your homepage.\
-Find a study group to join or leave a study group by clicking the `EXPLORE` tag on the navbar.\
-Your events will be recorded on the agenda on the right side of the page.
+## Tech Stack
 
-## Other notes
+| Layer | Technology |
+|---|---|
+| Framework | React (Create React App + CRACO) |
+| Routing | React Router v6 |
+| Auth & DB | Firebase (Authentication + Firestore) |
+| Styling | Bootstrap, React-Bootstrap, styled-components, Tailwind CSS |
+| Calendar | react-big-calendar, @syncfusion/ej2-react-schedule |
+| HTTP | Axios |
+| Backend | [study-radar-backend](https://github.com/study-radar/study-radar-backend) (Node.js/PostgreSQL) |
 
-This project is the Final Project for UCLA's CS35L Software Construction course. Please feel free to fork and adjust to your needs/wants.
+## Project Structure
+
+```
+src/
+├── screens/        # Page-level components (Login, SignUp, Home, Explore, CreateEvent, Calendar, etc.)
+├── components/     # Reusable UI (StudyGroupCard, Agenda, JoinLeaveButton, PrivateRoute, etc.)
+├── contexts/       # React context providers (auth state)
+├── services/       # API calls via Axios
+└── firebase.js     # Firebase app initialization
+```
+
+## Setup
+
+```bash
+git clone https://github.com/study-radar/study-radar-frontend.git
+cd study-radar-frontend
+npm install
+```
+
+Create a `.env.local` file with your Firebase config:
+```
+REACT_APP_FIREBASE_API_KEY=...
+REACT_APP_FIREBASE_AUTH_DOMAIN=...
+REACT_APP_FIREBASE_PROJECT_ID=...
+```
+
+Start the dev server:
+```bash
+npm start
+```
+
+Visit [http://localhost:3000](http://localhost:3000). Connect the backend by following instructions at [study-radar-backend](https://github.com/study-radar/study-radar-backend).
